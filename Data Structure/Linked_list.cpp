@@ -1,73 +1,33 @@
 #include<iostream>
+#include"Implementation/linked_list.cpp"
 using namespace std;
 
-class node{
-    public:
-    int data;
-    node* next;
 
-    node(int val){
-        this->data=val;
-        next=NULL;
-    }
-    void insertAtTail(int val){
-        node* n =new node(val);
-        node* temp=this;
-        while(temp->next!=NULL){
-            temp=temp->next;
-        }
-        temp->next=n;
-    }
-    void displayList(){
-        node* temp =this;
-        while(temp!=NULL){
-            cout<< temp->data <<" -> ";
-            temp=temp->next;
-        }
-        cout<< "NULL\n\n";
-    }
-    node* insertAtHead(int val){
-        node* n =new node(val);
-        n->next=this;
-        return n;
-    }
-    bool search(int key){
-        node* temp=this;
-        while (temp!=NULL){
-            if(temp->data==key){
-                return true;
-            }
-            temp=temp->next;
-        }
-        return false;
-    }
 /*---------------------      Delete the Node of the Linked List       ---------------------------*/
-    void deleteNode(int val){
-        node* temp=this;
-        while (temp->next->data!=val){
-            temp=temp->next;
-        }
-        node* delNode=temp->next;
-        temp->next=temp->next->next;
-        delete delNode;
+void deleteNode(node* &head,int val){
+    node* temp=head;
+    while (temp->next->data!=val){
+        temp=temp->next;
     }
+    node* delNode=temp->next;
+    temp->next=temp->next->next;
+    delete delNode;
+}
 
 /*-------------------------  Reverse the Linked List in Iterative way     --------------------*/
 
-    node* reverseList(){
-        node* previous =NULL;
-        node* current =this;
-        node* next;
-        while(current!=NULL){
-            next=current->next;
-            current->next=previous;
-            previous=current;
-            current=next;
-        }
-        return previous;
+node* reverseList(node* &head){
+    node* previous =NULL;
+    node* current =head;
+    node* next;
+    while(current!=NULL){
+        next=current->next;
+        current->next=previous;
+        previous=current;
+        current=next;
     }
-   
-};
+    return previous;
+}
 
 
 /* --------------------      Reverse the Linked List Recursively       ------------------------*/
@@ -124,7 +84,7 @@ void make_cycle(node* &head,int pos){
 bool detect_cycle(node* &head){
     node* slow=head;
     node* fast=head;
-    while(fast && fast->next!=NULL && slow){
+    while(fast && fast->next!=NULL){
         slow=slow->next;
         fast=fast->next->next;
         if(slow==fast){
@@ -153,15 +113,6 @@ void remove_cycle(node* &head){
     
 }
 
-int length(node* head){
-    int count=0;
-    while(head!=NULL){
-        head=head->next;
-        count++;
-    }
-    return count;
-}
-
 
 /*-------------------------   Intersection point in 2 Linked List   ---------------------------------*/
 
@@ -179,8 +130,8 @@ void intersect(node* &head1,node* &head2,int pos){
 }
 
 int intersection_point(node* head1,node*head2){    
-    int l1=length(head1);
-    int l2=length(head2);
+    int l1=head1->length();
+    int l2=head2->length();
     node* ptr1;
     node* ptr2;
     int d=0;
@@ -278,9 +229,6 @@ void evenAfterOdd(node* &head){
          even=even->next;    
     }
     odd->next=evenStart;
-    if(odd->next!=NULL){
-        even->next=NULL;
-    }
 }
 
 
@@ -290,7 +238,7 @@ node* append(node* &head,int k){
     node* tail=head;
     node* newTail;
     node* newHead;
-    int l=length(head);
+    int l=head->length();
     int count=1;
     while(tail->next!=NULL){
         if(count==l-k){
@@ -309,68 +257,70 @@ node* append(node* &head,int k){
 
 
 
-// int main(){
+int main(){
 
-//     node* head = new node(10);
-//     head->insertAtTail(20);
-//     head->insertAtTail(30);
-//     head->insertAtTail(40);
-//     head->displayList();
+    node* head = new node(10);
+    head->insertAtTail(20);
+    head->insertAtTail(30);
+    head->insertAtTail(40);
+    head->displayList();
 
-//     head=head->insertAtHead(5);
-//     head->displayList();
+    head=head->insertAtHead(5);
+    head->displayList();
 
-//     // cout<< head->search(5)<< "\n";
-//     // cout<< head->search(25)<< "\n";
+    // cout<< head->search(5)<< "\n";
+    // cout<< head->search(25)<< "\n";
 
-//     // head->deleteNode(20);
-//     // head->displayList();
+    // head->deleteNode(20);
+    // head->displayList();
 
-//     // head=head->reverseList();
-//     // head->displayList();
+    // head=head->reverseList();
+    // head->displayList();
 
-//     // head=reverseRecursively(head);
-//     // head->displayList();
+    head=reverseRecursively(head);
+    cout<<"After Recursion of Linked List: "<<endl;
+    head->displayList();
 
-//     head=reverseK(head,3);
-//     cout<<"Reverse K node :\n";
-//     head->displayList();
+    head=reverseK(head,3);
+    cout<<"Reverse K node :\n";
+    head->displayList();
 
-//     // make_cycle(head,0);
-//     // cout<<detect_cycle(head)<<"\n";
-//     // remove_cycle(head);
-//     // cout<<detect_cycle(head)<<"\n";
-//     // head->displayList();
+    // make_cycle(head,0);
+    // cout<<detect_cycle(head)<<"\n";
+    // remove_cycle(head);
+    // cout<<detect_cycle(head)<<"\n";
+    // head->displayList();
     
-//     node* head2=new node(20);
-//     head2->insertAtTail(25);
-//     head2->insertAtTail(30);
-//     head2->displayList();
-//     intersect(head,head2,3);
-//     head2->displayList();
-//     cout<<"Intersection point : "<<intersection_point(head,head2)<<"\n\n";
+    node* head2=new node(20);
+    head2->insertAtTail(25);
+    head2->insertAtTail(30);
+    head2->displayList();
+    intersect(head,head2,3);
+    head2->displayList();
+    cout<<"Intersection point : "<<intersection_point(head,head2)<<"\n\n";
 
-//     // node* list1=new node(1);
-//     // list1->insertAtTail(4);
-//     // list1->insertAtTail(6);
-//     // list1->insertAtTail(8);
-//     // list1->insertAtTail(12);
-//     // list1->displayList();
+    node* list1=new node(1);
+    list1->insertAtTail(4);
+    list1->insertAtTail(6);
+    list1->insertAtTail(8);
+    list1->insertAtTail(12);
+    list1->displayList();
 
-//     // node* list2=new node(3);
-//     // list2->insertAtTail(7);
-//     // list2->insertAtTail(9);
-//     // list2->insertAtTail(13);
-//     // list2->insertAtTail(17);
-//     // list2->displayList();
+    node* list2=new node(3);
+    list2->insertAtTail(7);
+    list2->insertAtTail(9);
+    list2->insertAtTail(13);
+    list2->insertAtTail(17);
+    list2->displayList();
 
-//     // node* sorted = merge_recursively(list1,list2);
-//     // sorted->displayList();
+    node* sorted = merge_recursively(list1,list2);
+    sorted->displayList();
 
-//     // evenAfterOdd(sorted);
-//     // sorted->displayList();  
-//     head->displayList();
-//     head=append(head,2);
-//     head->displayList();
-//     return 0;
-// }
+    evenAfterOdd(sorted);
+    cout<<"After Even Odd Linked List: "<<endl;
+    sorted->displayList();  
+    head->displayList();
+    head=append(head,2);
+    head->displayList();
+    return 0;
+}

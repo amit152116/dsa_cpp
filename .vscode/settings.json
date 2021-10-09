@@ -88,5 +88,6 @@
   "C_Cpp_Runner.enableWarnings": true,
   "C_Cpp_Runner.warningsAsError": false,
   "python.linting.enabled": true,
-  "jupyter.jupyterServerType": "local"
+  "jupyter.jupyterServerType": "local",
+  "code-runner.terminalRoot": "/mnt/"
 }

@@ -1,4 +1,9 @@
- //  while(x!=(char*)" "){
-        //      word.push_back(x);
-        //  }
-       
+for(auto &i:s){
+        if(i=='('){
+            i=')';
+        }
+        else if(i==')'){
+            i='(';
+        }
+
+    }

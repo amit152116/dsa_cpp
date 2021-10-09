@@ -1,54 +1,10 @@
 #include<iostream>
 #include<stack>
-#include"Linked_list.cpp"
-
-/*      
-*       We can implement the stack in array also but
-*       array size if not dynamic. So, we have fixed size .
-*/
 
 using namespace std;
 
-class Stack{
-    private:
-    node* head;
-
-    public:
-    stack(){
-        head=NULL;
-    }
-    void push(int x){
-        node* temp=new node(x);
-        temp->next=head;
-        head=temp;
-    }
-    int pop(){
-        if(head==NULL){
-            cout<<"No element remaining.\n";
-            return -1;
-        }
-        int res=head->data;
-        node* todel=head;
-        head=head->next;
-        delete todel;
-        return res;
-    }
-    bool is_empty(){
-        return head==NULL;
-    }
-    int top(){
-        if(head==NULL){
-            cout<<"NO element";
-            return -1;
-        }
-        return head->data;
-    }
-    
-};
-
-
 /*
-*    -----------------------------       Reversing the String        ---------------------------
+*    -----------------------------       Reversing the word        ---------------------------
 */
 void reverse_Sentence(string s){
     stack<string> result;
@@ -65,6 +21,22 @@ void reverse_Sentence(string s){
         result.pop();
     }
     cout<<"\n\n";
+}
+
+/*
+*    -----------------------------       Reverse the String        ---------------------------
+*/
+string reverse_string(string s){
+    string result =s;
+    int start=0,end=result.length()-1;
+    while(start<end){
+        char temp=result[start];
+        result[start]=result[end];
+        result[end]=temp;
+        start++;
+        end--;
+    }
+    return result;
 }
 
 /*
@@ -91,6 +63,111 @@ void reverse_Stack(stack<int>& st){
     insert_At_Bottom(st,data);   
 }
 
+/*
+*    -----------------------------      Infix to Postfix Expression        ---------------------------
+*/
+int operator_rank(char c){
+    if(c=='^'){
+        return 3;
+    }
+    else if(c =='*' || c=='/'){
+        return 2;
+    }
+    else if(c=='+' || c=='-'){
+        return 1;
+    }
+    else{
+        return -1;
+    }
+}
+string postfix_expression(string s){
+    stack<char> st;
+    string result;
+    for(auto i:s){
+        if((i>='a' && i<='z') || (i>='A' && i<='Z')){
+            result+=i;
+        }
+        else if(i=='('){
+            st.push(i);
+            
+        }
+        else if(i==')'){
+            while(!st.empty() && st.top()!='('){
+                result+=st.top();
+                st.pop();
+            }
+            if(!st.empty()){
+                st.pop();
+            }
+            
+        }
+        else{
+            while(!st.empty() && operator_rank(i)<operator_rank(st.top())){
+                result+=st.top();
+                st.pop();
+            }
+            st.push(i);
+            
+        }
+    }
+    while(!st.empty()){
+        result+=st.top();
+        st.pop();
+    }
+    return result;
+}
+
+/*
+*    -----------------------------      Infix to Prefix Expression        ---------------------------
+*/
+string prefix_expression(string s){
+    stack<char> st;
+    string result;
+    s = reverse_string(s);
+    for(auto &i:s){
+        if(i=='('){
+            i=')';
+        }
+        else if(i==')'){
+            i='(';
+        }
+
+    }
+    for(auto i:s){
+        if((i>='a' && i<='z') || (i>='A' && i<='Z')){
+            result+=i;
+        }
+        else if(i=='('){
+            st.push(i);
+            
+        }
+        else if(i==')'){
+            while(!st.empty() && st.top()!='('){
+                result+=st.top();
+                st.pop();
+            }
+            if(!st.empty()){
+                st.pop();
+            }
+            
+        }
+        else{
+            while(!st.empty() && operator_rank(i)<operator_rank(st.top())){
+                result+=st.top();
+                st.pop();
+            }
+            st.push(i);
+            
+        }
+    }
+    while(!st.empty()){
+        result+=st.top();
+        st.pop();
+    }
+    result=reverse_string(result);
+    return result;
+}
+
 void print_Stack(stack<int> st){
     while(!st.empty()){
         cout<<st.top()<<" ";
@@ -112,6 +189,10 @@ int main(){
     cout<<"After reversing the Stack: "<<endl;
     print_Stack(st);
 
+    string expression="(a+b/c)*(a*d-g)";
+    cout<<"Infix Expression : "<<expression<<endl;
+    cout<<"Postfix Expression : "<<postfix_expression(expression)<<endl;
+    cout<<"Prefix Expression : "<<prefix_expression(expression)<<endl;
 
     return 0;
 

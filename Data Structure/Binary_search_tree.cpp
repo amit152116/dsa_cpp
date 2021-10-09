@@ -49,16 +49,16 @@ node* searchInBST(node* root,int key){
     return searchInBST(root->right,key);
 }
 
-node* deleteInBST(node* root,int key){
-    if(root->data<key){
-        root->left=deleteInBST(root->left,key);
-    }
-    else if(root->data>key){
-        root->right=deleteInBST(root->right,key);
-    }
-    else{
-    }
-}
+// node* deleteInBST(node* root,int key){
+//     if(root->data<key){
+//         root->left=deleteInBST(root->left,key);
+//     }
+//     else if(root->data>key){
+//         root->right=deleteInBST(root->right,key);
+//     }
+//     else{
+//     }
+// }
 
 int main(){
 
