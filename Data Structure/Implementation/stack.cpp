@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 #include"linked_list.cpp"
 /*
 *    -----------------------------    Implementing Stack using Linked List      ---------------------------
@@ -38,4 +39,37 @@ class Stack{
         return head->data;
     }
     
+};
+
+/*
+*    -----------------------------    Implementing Stack using Queue     ---------------------------
+*       There are two methods for this :
+*       1. Making the Push method costly
+*       2. Making the Pop method costly
+
+todo       We can also implement stack using one queue only -> https://leetcode.com/problems/implement-stack-using-queues/
+*/
+class stackQueue{
+    private:
+    queue<int> qu1,qu2;
+    public:
+    stackQueue(){
+    }
+    void push(int val){
+        qu2.push(val);
+        while(!qu1.empty()){
+            qu2.push(qu1.front());
+            qu1.pop();
+        }
+        queue<int> temp=qu1;
+        qu1=qu2;
+        qu2=temp;
+
+    }
+    void pop(){
+        if(qu1.empty()){
+            cout<<"Stack is empty "<<endl;
+        }
+        qu1.pop();
+    }
 };

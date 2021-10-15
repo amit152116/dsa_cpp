@@ -255,7 +255,23 @@ node* append(node* &head,int k){
     return newHead;
 }
 
-
+/* --------------------------     Sorting Linked List Using Merge Sort    ----------------------------*/
+void merge_Sorting(node** head){
+      if(!head || !(*head)->next){
+          return;
+      }
+      node *first=*head,*second;
+      node *fast=first->next,*slow=*head;
+      while(fast&&fast->next){
+          slow=slow->next;
+          fast=fast->next->next;
+      }
+      second=slow->next;
+      slow->next=NULL;
+      merge_Sorting(&first);
+      merge_Sorting(&second);
+      *head=merge(first,second);
+  }
 
 int main(){
 
@@ -314,11 +330,17 @@ int main(){
     list2->displayList();
 
     node* sorted = merge_recursively(list1,list2);
+    cout<<"After Merging two Linked List: ";
     sorted->displayList();
 
     evenAfterOdd(sorted);
-    cout<<"After Even Odd Linked List: "<<endl;
+    cout<<"After Even Odd Linked List: ";
     sorted->displayList();  
+
+    merge_Sorting(&sorted);
+    cout<<"After Merge Sort : ";
+    sorted->displayList();
+
     head->displayList();
     head=append(head,2);
     head->displayList();

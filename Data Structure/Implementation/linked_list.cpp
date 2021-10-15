@@ -23,7 +23,7 @@ class node{
             cout<< temp->data <<" -> ";
             temp=temp->next;
         }
-        cout<< "NULL\n\n";
+        cout<< "NULL\n";
     }
     node* insertAtHead(int val){
         node* n =new node(val);

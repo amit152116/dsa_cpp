@@ -3,13 +3,6 @@
 
 using namespace std;
 
-void print_queue(queue<int> st){
-    while(!st.empty()){
-        cout<<st.front()<<" -> ";
-        st.pop();
-    }
-    cout<<endl;
-}
 int main(){
     queue<int> st;
     st.push(1);
