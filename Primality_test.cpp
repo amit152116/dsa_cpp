@@ -59,15 +59,15 @@ bool is_palindrome(int n){
 }
 int main(){
     fast;
-    long int n=823;
+    long int n=INTMAX_MAX;
     cout<<n<<endl;
     long int k=(n+1)%6==0?(n+1)/6:(n-1)/6;
     while(k>0){
         if(primality_test_naive(6*k+1)==true){
-            break;
+            // break;
         }
         if(primality_test_naive(6*k-1)==true){
-            break;
+            // break;
         }
         k--;
     }

@@ -36,6 +36,14 @@ void inOrder(node* root){
     inOrder(root->right);
     
 }
+void preOrder(node* root){
+    if(root==NULL){
+        return;
+    }
+    cout<<root->data<<' ';
+    preOrder(root->left);
+    preOrder(root->right);
+}
 node* searchInBST(node* root,int key){
     if(root==NULL){
         return NULL;
@@ -49,31 +57,20 @@ node* searchInBST(node* root,int key){
     return searchInBST(root->right,key);
 }
 
-// node* deleteInBST(node* root,int key){
-//     if(root->data<key){
-//         root->left=deleteInBST(root->left,key);
-//     }
-//     else if(root->data>key){
-//         root->right=deleteInBST(root->right,key);
-//     }
-//     else{
-//     }
-// }
-
 int main(){
 
-    node* root=new node(5);
+    node* root=new node(4);
     insertBST(root,7);
     insertBST(root,3);
     insertBST(root,2);
-    insertBST(root,4);
+    insertBST(root,5);
     insertBST(root,1);
+    insertBST(root,6);
     
     inOrder(root);
     cout<< endl;
 
-    node* searchKey=searchInBST(root,5);
-    cout<<searchKey->data;
+    preOrder(root);
 
 
     return 0;
