@@ -13,7 +13,7 @@ int catalan(int n){
     return ans;
 }
 int catalan2(int n){
-    vector<int> ans(n,0);
+    vector<int> ans(n+1,0);
     ans[0]=1;
     ans[1]=1;
     for(int i=2;i<=n;i++){
@@ -22,7 +22,7 @@ int catalan2(int n){
         }
         cout<<ans[i]<<endl;
     }
-    return ans[n-1];
+    return ans[n];
 
 }
 int main(){

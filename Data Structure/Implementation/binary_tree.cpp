@@ -15,21 +15,21 @@ public:
     
 };
 void display(node* root, string prefix = "", bool isLeft = true) {
-        if (root == nullptr) {
-            cout << "Empty tree";
-            return;
-        }
-
-        if(root->right) {
-            display(root->right, prefix + (isLeft ? "│   " : "    "), false);
-        }
-
-        cout << prefix + (isLeft ? "└── " : "┌── ") + to_string(root->val) + "\n";
-
-        if (root->left) {
-            display(root->left, prefix + (isLeft ? "    " : "│   "), true);
-        }
+    if (root == nullptr) {
+        cout << "Empty tree";
+        return;
     }
+
+    if(root->right) {
+        display(root->right, prefix + (isLeft ? "│   " : "    "), false);
+    }
+
+    cout << prefix + (isLeft ? "└── " : "┌── ") + to_string(root->val) + "\n";
+
+    if (root->left) {
+        display(root->left, prefix + (isLeft ? "    " : "│   "), true);
+    }
+}
 // ------------------------------------     Inorder Traversal     ---------------------------------------
 void inOrder_traversal(node* root, vector<int> &arr){
     stack<node*> st;
