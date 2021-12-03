@@ -124,25 +124,16 @@ string prefix_expression(string s){
     stack<char> st;
     string result;
     s = reverse_string(s);
-    for(auto &i:s){
-        if(i=='('){
-            i=')';
-        }
-        else if(i==')'){
-            i='(';
-        }
-
-    }
     for(auto i:s){
         if((i>='a' && i<='z') || (i>='A' && i<='Z')){
             result+=i;
         }
-        else if(i=='('){
+        else if(i==')'){
             st.push(i);
             
         }
-        else if(i==')'){
-            while(!st.empty() && st.top()!='('){
+        else if(i=='('){
+            while(!st.empty() && st.top()!=')'){
                 result+=st.top();
                 st.pop();
             }

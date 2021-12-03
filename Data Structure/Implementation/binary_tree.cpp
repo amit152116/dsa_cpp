@@ -32,22 +32,35 @@ void display(node* root, string prefix = "", bool isLeft = true) {
     }
 // ------------------------------------     Inorder Traversal     ---------------------------------------
 void inOrder_traversal(node* root, vector<int> &arr){
-    if(!root){
-        return;
+    stack<node*> st;
+    while(!st.empty() || root){
+        while(root){
+            st.push(root);
+            root=root->left;
+        }
+        root=st.top();
+        st.pop();
+        arr.push_back(root->val);
+        root=root->right;
     }
-    inOrder_traversal(root->left,arr);
-    arr.push_back(root->val);
-    inOrder_traversal(root->right,arr);
 }
 
 // ------------------------------------     Preorder Traversal     ---------------------------------------
 void preOrder_traversal(node* root,vector<int> &arr){
-    if(root==NULL){
-        return;
+    stack<node*> st;
+    while(!st.empty() || root){
+        while(root){
+            if(root->right)st.push(root->right); 
+            arr.push_back(root->val);
+            root=root->left;
+        }
+        if(!st.empty())
+        {
+            root=st.top();
+            st.pop();
+        }
     }
-    arr.push_back(root->val);
-    preOrder_traversal(root->left,arr);
-    preOrder_traversal(root->right,arr);
+    return ;
 }
 
 // ------------------------------------     Postorder Traversal     ---------------------------------------
@@ -106,7 +119,7 @@ node* buildTree_PostOrder(vector<int> postorder,vector<int> inorder, int start, 
     if(start>end){
         return NULL;
     }
-    static int idx=6;
+    static int idx=postorder.size()-1;
     int curr=postorder[idx];
     idx--;
     node* Node=new node(curr);
@@ -219,6 +232,114 @@ void right_view(node* root){
         }
     }
 }
+
+
+// -----------------------------    Top View of Binary Tree     ----------------------------
+void top_view(node* root){
+    if(!root)return;
+
+        vector<int> arr;
+        queue<pair<node*,int>> q;
+        q.push({root,0});
+        while (!q.empty())
+        {
+            root=q.front().first;
+            int val=q.front().second;
+            q.pop();
+            if(find(arr.begin(),arr.end(),val)==arr.end()){
+                cout<<root->val<<" ";
+                arr.push_back(val);
+            }
+            if(root->left){
+                q.push({root->left,val-1});
+            }
+            if(root->right){
+                q.push({root->right,val+1});
+            }
+        }
+        return ;
+}
+
+// -----------------------------    Lowest Common Ancestor Recursively     ----------------------------
+
+node* LCA(node* root,int n1,int n2){
+    if(!root){
+        return NULL;
+    }
+    if(root->val==n1 || root->val==n2){
+        return root;
+    }
+    node* left=LCA(root->left,n1,n2);
+    node* right=LCA(root->right,n1,n2);
+    if(left && right){
+        return root;
+    }
+    if(!left && !right){
+        return NULL;
+    }
+    return left?left:right;
+}
+
+// -----------------------------    Shortest Distance b/w 2 Nodes     ----------------------------
+
+int find_dist(node* root,int k,int dist){
+    if(!root)return -1;
+    if(root->val==k){
+        return dist;
+    }
+    int left=find_dist(root->left,k,dist+1);
+    if(left!=-1){
+        return left;
+    }
+    return find_dist(root->right,k,dist+1);
+}
+
+int dist_nodes(node* root,int n1,int n2){
+    node* lca=LCA(root,n1,n2);
+
+    int d1=find_dist(lca,n1,0);
+    int d2=find_dist(lca,n2,0);
+    
+    return d1+d2;
+}
+// -----------------------------    Flatten the Binary Tree     ----------------------------
+
+node* flatten_tree(node* head){
+    stack<node*> st;
+    node* dummy=new node(-1);
+    node* temp=dummy;
+    node* root=head;
+    while(!st.empty() || root){
+        while(root){
+            if(root->right)st.push(root->right);
+            dummy->left=root;
+            dummy->right=nullptr;
+            dummy=dummy->left;
+            root=root->left;
+        }
+        if(!st.empty()){
+            root=st.top();
+            st.pop();
+        }
+        
+    }
+    return temp->left;
+}
+// -----------------------------    Max Path Sum in Binary Tree     ----------------------------
+
+int max_pathSum(node* root,int &maxi){
+        if(!root){
+            return 0;
+        }
+        int left=max_pathSum(root->left,maxi);
+        int right=max_pathSum(root->right,maxi);
+        int ans=max(root->val,root->val+left);
+        ans=max(ans,root->val+right);
+        maxi=max(maxi,max(ans,root->val+right+left));
+        return ans;
+    }
+// -----------------------------    Nodes at Distance K in Binary Tree     ----------------------------
+
 int main(){
     node* root=new node(1);
     root->left=new node(2);
@@ -228,12 +349,25 @@ int main(){
     root->right->left=new node(6);
     root->right->right=new node(7);
 
-    vector<int> preorder={1,2,4,5,3,6,7};
-    vector<int> inorder={4,2,5,1,6,3,7};
+    vector<int> preorder;
+    preOrder_traversal(root,preorder);
+    cout<<"PreOrder Traversal : ";
+    for(auto i: preorder){
+        cout<<i<<" -> ";
+    }
+    cout<<endl;
+
+
+    vector<int> inorder;
+    inOrder_traversal(root,inorder);
+    cout<<"Inorder Traversal : ";
+    for(auto i: inorder){
+        cout<<i<<" -> ";
+    }
+    cout<<endl;
+
 
     node* tree=buildTree_PreOrder(preorder,inorder,0,inorder.size()-1);
-    vector<int> postorder={4,5,2,6,7,3,1};
-    tree=buildTree_PostOrder(postorder,inorder,0,inorder.size()-1);
     vector<int> arr;
     levelOrder_traversal(tree,arr);
     for(auto i:arr){
@@ -251,6 +385,16 @@ int main(){
     height=0;
     cout<<isBalanced(root,height)<<endl;
 
+    cout<<dist_nodes(root,11,6)<<endl<<endl;
+
+    cout<<"Top view of Binary Tree: ";
+    top_view(root);
+    cout<<endl;
+
+    cout<<"MAX Path Sum : ";
+    int max=INT_MIN;
+    max_pathSum(root,max);
+    cout<<max<<endl;
 
     
     return 0;
