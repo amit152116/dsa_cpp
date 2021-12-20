@@ -261,6 +261,8 @@ void top_view(node* root){
 }
 
 // -----------------------------    Lowest Common Ancestor Recursively     ----------------------------
+//*     Soution 2: Can also be solved be storing the path to both nodes and finding last common path node. 
+//*     Time Complexity=O(n)
 
 node* LCA(node* root,int n1,int n2){
     if(!root){
@@ -328,17 +330,16 @@ node* flatten_tree(node* head){
 // -----------------------------    Max Path Sum in Binary Tree     ----------------------------
 
 int max_pathSum(node* root,int &maxi){
-        if(!root){
-            return 0;
-        }
-        int left=max_pathSum(root->left,maxi);
-        int right=max_pathSum(root->right,maxi);
-        int ans=max(root->val,root->val+left);
-        ans=max(ans,root->val+right);
-        maxi=max(maxi,max(ans,root->val+right+left));
-        return ans;
+    if(!root){
+        return 0;
     }
-// -----------------------------    Nodes at Distance K in Binary Tree     ----------------------------
+    int left=max_pathSum(root->left,maxi);
+    int right=max_pathSum(root->right,maxi);
+    int ans=max(root->val,root->val+left);
+    ans=max(ans,root->val+right);
+    maxi=max(maxi,max(ans,root->val+right+left));
+    return ans;
+}   
 
 int main(){
     node* root=new node(1);

@@ -1,6 +1,4 @@
 #include<bits/stdc++.h>
-#include<iostream>
-#include<vector>
 #define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
 using namespace std;
 
@@ -46,6 +44,9 @@ void display(node* root, string prefix = "", bool isLeft = true) {
         display(root->left, prefix + (isLeft ? "    " : "│   "), true);
     }
 }
+
+
+
 // -----------------------------    Search in BST     ----------------------------
 
 node* searchInBST(node* root,int key){
@@ -104,15 +105,17 @@ node* buildTree_preorder(vector<int> arr,int min=INT_MIN, int max=INT_MAX){
     if(arr[i]>=min && arr[i]<=max){
         curr=new node(arr[i]);
         i++;
-        if(i>arr.size()){
-            return nullptr;
+        if(i<arr.size()){
+            if(curr->val>=arr[i]){
+                curr->left=buildTree_preorder(arr,min,curr->val);
+            }
         }
-        if(curr->val>=arr[i]){
-            curr->left=buildTree_preorder(arr,min,curr->val);
+        if(i<arr.size()){
+            if(curr->val<=arr[i]){
+                curr->right=buildTree_preorder(arr,curr->val,max);
+            }
         }
-        if(curr->val<=arr[i]){
-            curr->right=buildTree_preorder(arr,curr->val,max);
-        }
+        
     }
     return curr;
 }
@@ -120,14 +123,12 @@ node* buildTree_preorder(vector<int> arr,int min=INT_MIN, int max=INT_MAX){
 
 // -----------------------------    Valid Binary Search Tree     ----------------------------
 
-bool valid_BST(node* root,int min=INT_MIN, int max=INT_MAX){
+bool isValidBST(node* root,node* min=NULL,node* max=NULL) {
     if(!root)return true;
-    if(root->val>max || root->val<min){
-        return false;
-    }
-    bool lt = valid_BST(root->left,min,root->val);
-    bool rt = valid_BST(root->right,root->val,max);
-    return lt&&rt;
+    if(max && root->val>=max->val || min&&root->val<=min->val)return false;
+    bool left=isValidBST(root->left,min,root);
+    bool right=isValidBST(root->right,root,max);
+    return left&&right;
 }
 
 
@@ -147,24 +148,18 @@ node* buildTree_Sorted(vector<int> arr,int start,int end){
 vector<node*> generate_BST(int start, int end)
 {
     vector<node*> list;
-
-    if (start > end)
-    {
+    if (start > end){
         list.push_back(NULL);
         return list;
     }
- 
-    
-    for (int i = start; i <= end; i++)
-    {
+
+    for (int i = start; i <= end; i++){
         vector<node*> leftSubtree  = generate_BST(start, i - 1);        
         vector<node*> rightSubtree = generate_BST(i + 1, end);
 
-        for (int j = 0; j < leftSubtree.size(); j++)
-        {
+        for (int j = 0; j < leftSubtree.size(); j++){
             node* left = leftSubtree[j];
-            for (int k = 0; k < rightSubtree.size(); k++)
-            {
+            for (int k = 0; k < rightSubtree.size(); k++){
                 node* right = rightSubtree[k];
                 node* curr = new node(i);
                 curr->left = left;             
@@ -175,6 +170,13 @@ vector<node*> generate_BST(int start, int end)
     }
     return list;
 }
+
+// -----------------------------    Recover Binary Tree     ----------------------------
+
+node* recover_tree(node* root){
+    return NULL;
+}
+
 int main(){
 
     node* root=new node(50);
@@ -194,7 +196,7 @@ int main(){
     root=buildTree_Sorted(sorted,0,sorted.size()-1);
     display(root);
 
-    cout<<"Is Tree is valid BST? "<<valid_BST(root)<<endl;
+    cout<<"Is Tree is valid BST? "<<isValidBST(root)<<endl;
     
 
     vector<node*> trees=generate_BST(1,2);
