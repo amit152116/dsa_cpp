@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include"disjoint_set.cpp"
 #define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
 using namespace std;
 #define Graph map<int,set<int>>
@@ -7,7 +8,7 @@ using namespace std;
 
 // -----------------------------    BFS in Graph    ----------------------------
 void bfs(Graph graph,int item=0){
-    
+    fast;
     cout<<endl<<" BFS :";
     Visit visited;
     queue<int> st;
@@ -72,7 +73,7 @@ int connected_graph(Graph graph,Visit& visited,int node){
 }
 
 
-// -----------------------------    Bipartite Graph    ----------------------------
+// -----------------------------    Bipartite Graph by DFS    ----------------------------
 
 bool isBipartite_Graph(Graph graph,Visit& visited,int node,vector<int>& set,int color){
     if(set[node]!=-1 and set[node]!=color){
@@ -112,12 +113,39 @@ int main(){
         }
         cout<<endl;
     }
+
+   
+   
     bfs(graph);
     cout<<endl<<" DFS :";
     Visit visit1;
     dfs(graph,visit1);
     cout<<endl;
 
+
+     // ----------------------    Cycle detection Using Disjoint Sets   ------------------
+    bool cycle=false;
+    
+    Disjoint_Set disjoint_set;
+    for(auto i:arr1){
+        int u=i[0];
+        int v=i[1];
+        int x=disjoint_set.find_set(u);
+        int y=disjoint_set.find_set(v);
+        if(x==y){
+            cycle=true;
+            break;
+        }
+        else{
+            disjoint_set.union_sets(u,v);
+        }
+    }
+    if(cycle){
+        cout<<" Cycle detected"<<endl;
+    }
+    else{
+        cout<<" No Cycle detected"<<endl;
+    }
 
     vector<int> arr;
     visit1.clear();
@@ -143,7 +171,7 @@ int main(){
             }
         }
     }
-    cout<<"Color of Graph :";
+    cout<<" Color of Graph :";
     for(auto i:set){
         cout<<i<<' ';
     }

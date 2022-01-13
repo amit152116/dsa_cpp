@@ -69,6 +69,7 @@ void deleteNode(node* &head,int val){
 }
 
 /*-------------------------  Reverse the Linked List in Iterative way     --------------------*/
+    // * Linked list can also be reversed by using Stack.
 
 node* reverseList(node* &head){
     node* previous =NULL;

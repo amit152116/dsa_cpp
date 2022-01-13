@@ -6,7 +6,7 @@ using namespace std;
 
 // -----------------------------    BFS in Graph    ----------------------------
 void bfs(Graph graph){
-    
+    fast;
     cout<<endl<<" BFS : ";
     Visit visited;
     queue<int> st;
@@ -33,7 +33,7 @@ void bfs(Graph graph){
 }
 
 
-// -----------------------------    DFS in Undirected Graph    ----------------------------
+// -----------------------------    DFS in Graph    ----------------------------
 void dfs_util(Graph graph,int item,Visit& visited){
     cout<<item<<' ';
     visited[item]=true;
@@ -56,6 +56,7 @@ void dfs(Graph graph,Visit visited){
 
 
 // -----------------------------    Topological Sort in DAG   ----------------------------
+    // Topological sort can also be implemented using indegree of node and queue(Kahn's Algorithm).
 
 void topological_dfs(Graph graph,int node,stack<int>& st,Visit &visited){
     visited[node] = true;
