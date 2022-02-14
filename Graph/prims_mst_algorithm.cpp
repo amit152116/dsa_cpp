@@ -4,11 +4,49 @@
 using namespace std;
 
 
-map<int,set<pair<int,int>>> graph;
+//* Time Complexity : O(ElogV)
 
-int prims_MST(){
-    vector<int> parent(100);
-    vector<int> 
+// For adjancency matix time complexity of Prims is O(V^2) 
+// and it is good for denser graphs.
+
+map<int,set<pair<int,int>>> graph;
+int prims_MST(int n=9){
+    int cost=0;
+    
+    vector<int> dist(n,INT_MAX);
+    vector<bool> visit(n,false);
+    vector<int> parent(n,-1);
+    int source = 1;
+
+    set<pair<int,int>> st;
+    st.insert({0,source});
+    dist[source]=0;
+    while(!st.empty()){
+        auto x=*st.begin();
+        int u=x.second;
+        int w=x.first;
+        visit[u]=true;
+        cost+=w;
+        int v=parent[u];
+        cout<<v<<' '<<u<<endl;
+        st.erase(x);
+        for(auto i:graph[u]){
+            int child=i.first;
+            int weight=i.second;
+            if(visit[child]){
+                continue;
+            }
+            if(dist[child]>weight){
+                st.erase({dist[child],child});
+                dist[child]=weight;
+                st.insert({dist[child],child});
+                parent[child]=u;
+            }
+        }
+    }
+    
+    cout<<"Cost of MST : "<<cost<<endl;
+    return cost;
 }
 
 int main(){
@@ -24,14 +62,6 @@ int main(){
         graph[v].insert({u,w});
     }
 
-    for(auto i:graph){
-        cout<<i.first<<" -> ";
-        for(auto j:i.second){
-            cout<<j.first<<' '<<j.second<<"\t";
-        }
-        cout<<endl;
-    }
-
-    cout<<"Cost of MST : "<<prims_MST()<<endl;
+    prims_MST();
     return 0;
 }

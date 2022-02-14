@@ -3,6 +3,7 @@
 #define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
 using namespace std;
 
+//* Time Complexity : O(ElogV)
 int main(){
     // {weight,vertex1,vertex2}
     vector<vector<int>> edges={{5,1,2},{6,2,3},{2,4,3},{9,1,4},{5,3,5},{10,5,6},{7,6,7},{1,7,8},{1,8,5}};
