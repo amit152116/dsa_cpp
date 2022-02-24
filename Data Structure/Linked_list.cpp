@@ -120,7 +120,7 @@ node* reverseK(node* &head, int k){
 }
 
 /* -------------------     Detection & Removal of Cycle in Linked List   -------------------*/
-/*-----------------------------     (Floyd's Algorithm)      -------------------------------*/
+/*-----------------------------     (Floyd's Cycle Algorithm)      -------------------------------*/
 
 void make_cycle(node* &head,int pos){
     node* temp=head;
@@ -156,16 +156,22 @@ void remove_cycle(node* &head){
         slow=slow->next;
         fast=fast->next->next;
         if(slow==fast){
+            fast=head;
+            if(slow==fast){
+                while(slow->next!=fast){
+                    slow=slow->next;
+                }
+            }
+            else{
+                while(fast->next!=slow->next){
+                fast=fast->next;
+                slow=slow->next;
+                }
+            }
+            slow->next=NULL;
             break;
         }
-    }
-    fast=head;
-    while(fast->next!=slow->next){
-        fast=fast->next;
-        slow=slow->next;
-    }
-    slow->next=NULL;
-    
+    } 
 }
 
 

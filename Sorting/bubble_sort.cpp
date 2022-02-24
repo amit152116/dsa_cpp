@@ -3,12 +3,6 @@
 
 using namespace std;
 
-void swap(int &a, int &b){
-    int temp=a;
-    a=b;
-    b=temp;
-}
-
 /*         
 *               Worst & Average Case Time Complexity : O(n^2)
 *               Best Case Time Complexity : O(n)
@@ -33,6 +27,10 @@ int main(){
     cout<<"No of swaps required : "<<count<<endl;
      for (int i = 0; i < n; i++)
     {
+        if(i%5==0){
+            cout<<endl;
+        }
         cout<<arr[i]<<"\t";
+        
     }
 }

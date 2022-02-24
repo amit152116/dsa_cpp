@@ -238,7 +238,7 @@ void right_view(node* root){
 void top_view(node* root){
     if(!root)return;
 
-        vector<int> arr;
+        map<int,int> mp;
         queue<pair<node*,int>> q;
         q.push({root,0});
         while (!q.empty())
@@ -246,9 +246,8 @@ void top_view(node* root){
             root=q.front().first;
             int val=q.front().second;
             q.pop();
-            if(find(arr.begin(),arr.end(),val)==arr.end()){
-                cout<<root->val<<" ";
-                arr.push_back(val);
+            if(mp.find(val)==mp.end()){
+                mp[val]=root->val;
             }
             if(root->left){
                 q.push({root->left,val-1});
@@ -256,6 +255,35 @@ void top_view(node* root){
             if(root->right){
                 q.push({root->right,val+1});
             }
+        }
+        for(auto i: mp){
+            cout<<i.second<<' ';
+        }
+        return ;
+}
+
+// -----------------------------    Bottom View of Binary Tree     ----------------------------
+void bottom_view(node* root){
+    if(!root)return;
+
+        map<int,int> mp;
+        queue<pair<node*,int>> q;
+        q.push({root,0});
+        while (!q.empty())
+        {
+            root=q.front().first;
+            int val=q.front().second;
+            q.pop();
+            mp[val]=root->val;
+            if(root->left){
+                q.push({root->left,val-1});
+            }
+            if(root->right){
+                q.push({root->right,val+1});
+            }
+        }
+        for(auto i: mp){
+            cout<<i.second<<' ';
         }
         return ;
 }
@@ -391,7 +419,10 @@ int main(){
     cout<<"Top view of Binary Tree: ";
     top_view(root);
     cout<<endl;
-
+    cout<<"Bottom view of Binary Tree: ";
+    bottom_view(root);
+    cout<<endl;
+    
     cout<<"MAX Path Sum : ";
     int max=INT_MIN;
     max_pathSum(root,max);

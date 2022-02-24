@@ -2,12 +2,6 @@
 
 using namespace std;
 
-    void swap(int &a, int &b){
-        int temp=a;
-        a=b;
-        b=temp;
-    }
-
 /*
                            ------    SELECTION SORT   ------
                 The selection sort algorithm sorts an array by repeatedly finding
