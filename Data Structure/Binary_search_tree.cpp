@@ -173,8 +173,42 @@ vector<node*> generate_BST(int start, int end)
 
 // -----------------------------    Recover Binary Tree     ----------------------------
 
+//*         https://leetcode.com/problems/recover-binary-search-tree/
+
 node* recover_tree(node* root){
     return NULL;
+}
+
+//  -------------------------    Insert and Delete in AVL Tree   -------------------------
+// ! Incomplete
+node* left_rotate(node* &root){
+    node* left=root->left;
+    root->left=left->right;
+    left->right=root;
+    return left;
+}
+node* right_rotate(node* & root){
+    node* right=root->right;
+    root->right=right->left;
+    right->left=root;
+    return right;   
+}
+node* avl_tree(node* root,int &height){
+    if(!root)return nullptr;
+    int lh,rh;
+    node* left=avl_tree(root->left,lh);
+    node* right=avl_tree(root->right,rh);
+    if(abs(lh-rh)>1){
+        if(lh>rh){
+            if(root->val){}
+        }
+        else{
+            if(root->val){}
+        }
+    } 
+    height=1+max(lh,rh);
+    return root;
+    
 }
 
 int main(){
@@ -199,10 +233,10 @@ int main(){
     cout<<"Is Tree is valid BST? "<<isValidBST(root)<<endl;
     
 
-    vector<node*> trees=generate_BST(1,2);
+    vector<node*> trees=generate_BST(1,7);
     for(auto i:trees){
         display(i);
-        cout<<endl<<endl;
+        cout<<endl<<endl<<endl;
     }
     
     return 0;

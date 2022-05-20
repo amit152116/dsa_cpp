@@ -4,27 +4,26 @@ using namespace std;
 
 
 // Min no. of squares whose sum equal to given No.
-vector<int> arr;
-int MinSquare(int x){
+int MinSquare(int x,vector<int>& arr){
 
     if(arr[x]!=INT_MAX){
         return arr[x];
     }
 
     for(int i=1;i*i<=x;i++){
-        arr[x]=min(arr[x],1+MinSquare(x-i*i));
+        arr[x]=min(arr[x],1+MinSquare(x-i*i,arr));
     }
     return arr[x];
 }
 int main(){
     int x=51;
-    arr = vector<int>(x+1,INT_MAX);
+    vector<int> arr = vector<int>(x+1,INT_MAX);
     arr[0]=0;
     arr[1]=1;
     arr[2]=2;
     arr[3]=3;
     // Recursive Approach
-    cout<<MinSquare(x)<<endl;
+    cout<<MinSquare(x,arr)<<endl;
 
     // Iterative Approach
     for(int i=0;i*i<=x;i++){
