@@ -109,8 +109,6 @@ node* buildTree_preorder(vector<int> arr,int min=INT_MIN, int max=INT_MAX){
             if(curr->val>=arr[i]){
                 curr->left=buildTree_preorder(arr,min,curr->val);
             }
-        }
-        if(i<arr.size()){
             if(curr->val<=arr[i]){
                 curr->right=buildTree_preorder(arr,curr->val,max);
             }
@@ -125,7 +123,7 @@ node* buildTree_preorder(vector<int> arr,int min=INT_MIN, int max=INT_MAX){
 
 bool isValidBST(node* root,node* min=NULL,node* max=NULL) {
     if(!root)return true;
-    if(max && root->val>=max->val || min&&root->val<=min->val)return false;
+    if(max && root->val>=max->val || min && root->val<=min->val)return false;
     bool left=isValidBST(root->left,min,root);
     bool right=isValidBST(root->right,root,max);
     return left&&right;
