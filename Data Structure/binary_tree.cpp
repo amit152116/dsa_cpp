@@ -156,7 +156,7 @@ int treeHeight(node* root){
     int right=treeHeight(root->right);
     return max(left,right)+1;
 }
-// -----------------------------    Diameter of Binary Tree     ----------------------------
+// -----------------------------    Diameter of Binary Tree - 1    ----------------------------
 // Time complexity = O(n^2)
 int treeDiameter(node* root){
     if(!root){
@@ -171,7 +171,7 @@ int treeDiameter(node* root){
 
 }
 
-// -----------------------------    Diameter of Binary Tree     ----------------------------
+// -----------------------------    Diameter of Binary Tree - 2   ----------------------------
 // Time complexity = O(n)
 int treeDiameter(node* root,int &height){
     if(!root){
@@ -363,8 +363,7 @@ int max_pathSum(node* root,int &maxi){
     }
     int left=max_pathSum(root->left,maxi);
     int right=max_pathSum(root->right,maxi);
-    int ans=max(root->val,root->val+left);
-    ans=max(ans,root->val+right);
+    int ans=max(max(root->val,root->val+left),root->val+right);
     maxi=max(maxi,max(ans,root->val+right+left));
     return ans;
 }   

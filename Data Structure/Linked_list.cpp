@@ -43,15 +43,15 @@ class node{
         return false;
     }
     
-int length(){
-    node* head=this;
-    int count=0;
-    while(head!=NULL){
-        head=head->next;
-        count++;
+    int length(){
+        node* head=this;
+        int count=0;
+        while(head!=NULL){
+            head=head->next;
+            count++;
+        }
+        return count;
     }
-    return count;
-}
 
 
 
@@ -74,12 +74,12 @@ void deleteNode(node* &head,int val){
 node* reverseList(node* &head){
     node* previous =NULL;
     node* current =head;
-    node* next;
+    node* forward;
     while(current!=NULL){
-        next=current->next;
+        forward=current->next;
         current->next=previous;
         previous=current;
-        current=next;
+        current=forward;
     }
     return previous;
 }
@@ -243,12 +243,12 @@ node* merge(node* head1,node* head2){
         }
         temp3=temp3->next;
     }
-    while(temp1!=NULL){
+    if(temp1!=NULL){
         temp3->next=temp1;
         temp1=temp1->next;
         temp3=temp3->next;
     }
-    while(temp2!=NULL){
+    if(temp2!=NULL){
         temp3->next=temp2;
         temp2=temp2->next;
         temp3=temp3->next;
