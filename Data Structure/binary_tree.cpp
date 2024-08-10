@@ -72,7 +72,7 @@ void postOrder_traversal(node* root,vector<int> &arr){
     postOrder_traversal(root->right,arr);
     arr.push_back(root->val);
 }
-// ------------------------------------     Level Order Traversal     ---------------------------------------
+// ------------------------------------     Level Order Traversal / BFS     ---------------------------------------
 void levelOrder_traversal(node* root,vector<int> &arr){
     queue<node*> st;
     st.push(root);

@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 #include<vector>
 
 using namespace std;
@@ -8,21 +8,24 @@ long long int coin_change(int sum,vector<int> coins,vector<long long int>& arr){
         arr[sum]=1;
         return 1;
     }
+    if(sum<0){
+        return INT_MAX;
+    }
     if(arr[sum]!=-1){
         return arr[sum];
     }
     long long int count = 0;
     for(int i=0;i<coins.size();i++){
-        int subsum = sum-coins[i];
-        if(subsum<0)continue;
-        count += coin_change(subsum,coins,arr);
+        int ans = coin_change(sum-coins[i],coins,arr);
+        if(ans==INT_MAX)continue;
+        count+=ans;
     }
     arr[sum]=count;
     return count;
 }
 int main(){
-    vector<int> coins = {1,2,3};
-    int sum=4;
+    vector<int> coins = {1,2,5};
+    int sum=5;
     vector<long long int> arr(sum+1,-1);
     clock_t start,end;
     start = clock();

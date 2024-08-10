@@ -3,28 +3,32 @@
 #define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
 using namespace std;
 
-int min_coin(int sum,vector<int>& coins,vector<int>& memo){
+int min_coin(int sum,vector<int>& coins,vector<int>& dp){
     if(sum==0){
-        memo[sum] = 0;
+        dp[sum] = 0;
         return 0;
     }
-    if(memo[sum]!=-1){
-        return memo[sum];
+    if(sum<0){
+        return INT_MAX;
     }
-    int ans = INT_MAX;
+    if(dp[sum]!=-1){
+        return dp[sum];
+    }
+    int mini = INT_MAX;
     for(auto it:coins){
-        int subsum = sum-it;
-        if(subsum<0)continue;
-        ans = min(ans,1+min_coin(subsum,coins,memo));
+        int ans = min_coin(sum-it,coins,dp);
+        if(ans!=INT_MAX){
+            mini = min(mini,1+ans);
+        }
     }
-    memo[sum] = ans;
+    if(mini!=INT_MAX)dp[sum] = mini;
 
-    return ans;
+    return mini;
 }
 
 int main(){
-    vector<int> coins = {1,3,43};
-    int sum=5000;
+    vector<int> coins = {3,43};
+    int sum=100;
 
 
     vector<int> arr(sum+1,-1);

@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include"disjoint_set.cpp"
+#include "../Data Structure/Disjoint_set.cpp"
 #define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
 using namespace std;
 #define Graph map<int,set<int>>
@@ -7,6 +7,11 @@ using namespace std;
 
 
 // -----------------------------    BFS in Graph    ----------------------------
+/* When to use BFS in graph?
+    
+
+    *   Time Complexity = O(V+E)
+*/
 void bfs(Graph graph,int item=0){
     fast;
     cout<<endl<<" BFS :";
@@ -30,6 +35,19 @@ void bfs(Graph graph,int item=0){
 
 
 // -----------------------------    DFS in Graph    ----------------------------
+/* When to use DFS in graph?
+    1. No. of Connected Components 
+    2. Compute Minimum Spanning Tree of graph
+    3. Detect and find cycles in graph
+    4. Checking if graph is Bipartite
+    5. Find Strongly Connected Components
+    6. Topological sort of graph
+    7. Find bridge and articulation point 
+    8. Find argumenting path in network flow
+    9. Generate Mazes
+
+    *    Time Complexity = O(V+E)
+*/
 void dfs(Graph graph,Visit &visited,int item=0){
     cout<<item<<' ';
     visited[item]=true;
@@ -93,6 +111,34 @@ bool isBipartite_Graph(Graph graph,Visit& visited,int node,vector<int>& set,int 
 
 }
 
+// -----------------------------   Eulerian Path    ----------------------------
+void eulerian_path(){
+
+}
+
+
+// ---------------------------    Eulerian Circuit   -------------------------------
+void eulerian_circuit(){
+    
+}
+
+// -----------------------------   Adjancey Matrix   ----------------------------
+vector<vector<int>> adjacency_matrix(int n,int arr[][2]){
+    vector<vector<int>> matrix(n,vector<int>(n,0));
+    for(int i=0;i<n;i++){
+        int x = arr[i][0];
+        int y = arr[i][1];
+        matrix[x][y]=1;
+        matrix[y][x]=1;
+    }
+    return matrix;
+}
+
+// -----------------------------  Finding Center of Rooted Tree ----------------------
+vector<int> find_center(Graph graph){
+    vector<int> center;
+    return center;
+}
 
 int main(){
     int arr1[][2]={{0,1},{0,6},{1,2},{1,4},{2,6},{3,2},{5,3},{4,3}};
@@ -114,7 +160,14 @@ int main(){
         cout<<endl;
     }
 
-   
+    auto matrix = adjacency_matrix(m,arr1);
+
+    for(auto i:matrix){
+        for(auto j:i){
+            cout<<j<<' ';
+        }
+        cout<<endl;
+    }
    
     bfs(graph);
     cout<<endl<<" DFS :";
@@ -221,7 +274,34 @@ int main(){
             break;
         }
     }
-    
 
+
+
+
+    int arr3[][2]={{2,0},{1,3},{4,0},{4,3},{4,5},{3,7},{3,6},{6,8},{7,8},{7,9},{5,10},{5,9},{10,9},{9,12},{9,11},{8,11}};
+    m=sizeof(arr3)/sizeof(arr3[0]);
+    n=13;
+    graph.clear();
+    for(int i=0;i<m;i++){
+        int x=arr3[i][0];
+        int y=arr3[i][1];
+        graph[x].insert(y);
+        graph[y].insert(x);
+    }
+    cout<<endl<<"Graph 3 : "<<endl;
+    for(auto i:graph){
+        cout<<i.first<<"-> ";
+        for(auto j:i.second){
+            cout<<j<<' ';
+        }
+        cout<<endl;
+    } 
+    visit2.clear();
+    for(int i=0;i<n;i++){
+        if(!visit2[i] && cycle_detect(graph,visit2,i,-1)){
+            cout<<"Cycle Detected "<<endl;
+            break;
+        }
+    }
     
 }

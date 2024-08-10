@@ -19,7 +19,6 @@ string long_multiplication(string a, string b){
     while(i<size && result[i]==0)i++;
     string ans="";
     for(i;i<size;i++){
-        cout<<result[i];
         ans+=result[i]+'0';
     }
     cout<<endl;
@@ -27,9 +26,20 @@ string long_multiplication(string a, string b){
 }
 int main(){
     fast;
-    string a="2147328487";
-    string b="2147328487";
-    cout<<long_multiplication(a,b);
-    cout<<"No. of Digits : "<<a.length()<<endl;
+    string a;
+    cin>>a;
+    string b = a;
+    int count = 0;
+    int len = a.size();
+    while(true){
+        b = long_multiplication(a,b);
+        count++;
+        string c = b.substr(b.size()-len,len);
+        cout<<c<<endl;
+        if (c==a)break;
+    }
+    
+    cout<<"Count : "<<count<<endl;
+
     return 0;
 }

@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include"../Data Structure/disjoint_set.cpp"
+#include"../Data Structure/Disjoint_set.cpp"
 #define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
 using namespace std;
 

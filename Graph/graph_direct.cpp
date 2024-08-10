@@ -83,6 +83,39 @@ void topological_sort(Graph graph){
     cout<<endl;
     return;
 }
+// --------------------------------------- [Indegree Sorting] [Kahn's Algorithms] ------------------------------
+// It is implemented using BFS
+void topological_sort_indegree(Graph graph){
+
+    vector<int> degree(graph.size(),0);
+    for(auto it:graph){
+        for(auto ele:it.second)
+        degree[ele]++;
+    }
+
+    queue<int> q;
+    for(int i=0;i<graph.size();i++){
+        if(degree[i]==0)q.push(i);
+    }
+    vector<int> sorted;
+    while(!q.empty()){
+        int node = q.front();
+        q.pop();
+        sorted.push_back(node);
+
+        for(auto it:graph[node]){
+            degree[it]--;
+            if(degree[it]==0)q.push(it);
+        }
+    }
+    cout<<"Topological Sort: ";
+    for(auto it:sorted){
+        cout<<it<<' ';
+    }
+    cout<<endl;
+
+    
+}
 
 
 // -----------------------------    Cycle detection in Graph    ----------------------------
@@ -101,6 +134,18 @@ bool cycle_detect(Graph graph,Visit& visited,int node,vector<bool>& stack){
     return false;
 
 }
+
+// ----------------------------------------   Eulerian Path  ---------------------------------------
+void eulerian_path(){
+
+}
+
+
+// ---------------------------------------   Eulerian Circuit   --------------------------------------
+void eulerian_circuit(){
+
+}
+
 
 
 int main(){
@@ -128,7 +173,7 @@ int main(){
     cout<<endl;
     topological_sort(graph);
     cout<<endl;
-
+    topological_sort_indegree(graph);
 
 // ------------------        Graph 2      -----------------------
     int arr2[][2]={{2,0},{2,1},{1,3},{0,3},{4,0},{4,3},{4,5},{3,7},{3,6},{6,8},{7,8},{7,9},{5,10},{5,9},{10,9},{9,12},{9,11},{8,11}};
@@ -155,6 +200,7 @@ int main(){
     dfs(graph,visit2);
     cout<<endl;
     topological_sort(graph);
+    topological_sort_indegree(graph);
     vector<bool> stack(n,false);
     visit2.clear();
     for(int i=0;i<n;i++){

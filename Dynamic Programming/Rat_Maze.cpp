@@ -39,10 +39,10 @@ int main(){
 
     for(int i=0;i<n;i++){
         for( int j=0;j<m;j++){
-            printf("[%d,%d] - %d\n",i,j,memo[i][j]);
+            cout<<"["<<i<<","<<j<<"] - "<<memo[i][j]<<endl;
         }
     }
     
-    printf("Time Taken : %d ms\n",duration.count());
+    cout<<"Time Taken : "<<duration.count()<<"ms"<<endl;
     return 0;
 }
