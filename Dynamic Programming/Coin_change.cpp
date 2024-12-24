@@ -3,6 +3,7 @@
 #define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
 using namespace std;
 
+// ----------------------------------------------       Memoization     ----------------------------------------------
 int min_coin(int sum,vector<int>& coins,vector<int>& dp){
     if(sum==0){
         dp[sum] = 0;
@@ -26,25 +27,33 @@ int min_coin(int sum,vector<int>& coins,vector<int>& dp){
     return mini;
 }
 
+// -----------------------------------------------      Tabulation      ------------------------------------------------
+int min_coin_tab(int sum, vector<int> coins){
+
+    vector<int> dp = vector(sum+1,INT_MAX);
+    dp[0] = 0;
+    for(int i = 1;i<=sum;i++){
+        for(int j =0;j<coins.size();j++){
+            if(i-coins[j]<0 || dp[i-coins[j]]==INT_MAX)continue;
+            dp[i] = min(dp[i],1+dp[i-coins[j]]);
+        }
+
+    }
+    return dp[sum];
+}
 int main(){
     vector<int> coins = {3,43};
     int sum=100;
 
-
     vector<int> arr(sum+1,-1);
-
-    clock_t start,end;
-    start = clock();
     int ans = min_coin(sum,coins,arr);
-    end = clock();
-    
-    double time_taken = double(end-start)/ double(CLOCKS_PER_SEC);
+  
+    cout<<ans<<endl;
 
-    for(int i=0;i<arr.size();i++){
-        cout<<i<<" - "<<arr[i]<<endl;
-    }
 
-    cout<<time_taken<<endl;
+
+    cout<<min_coin_tab(sum,coins)<<endl;
+ 
 
     return 0;
 }

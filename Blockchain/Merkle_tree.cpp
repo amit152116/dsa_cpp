@@ -3,7 +3,7 @@
 using namespace std;
 
 
-class Node{
+class TrieNode{
 private :
     uint64_t hashCode(){
         uint64_t prime = 61;
@@ -38,9 +38,9 @@ private :
     } 
 public :
     uint64_t curr_hash,left_hash,right_hash;
-    Node *left, *right;
+    TrieNode *left, *right;
     int val;
-    Node(int value,Node* left=NULL,Node* right=NULL){
+    TrieNode(int value,TrieNode* left=NULL,TrieNode* right=NULL){
         this->val = value;
         this->left = left;
         this->right = right;
@@ -49,12 +49,12 @@ public :
 
 };
 int main(){
-    Node* left = new Node(3968306);
+    TrieNode* left = new TrieNode(3968306);
 
     cout<<left->val<<endl<<left->curr_hash<<endl;
-    Node* right = new Node(10);
+    TrieNode* right = new TrieNode(10);
     cout<<right->val<<endl<<right->curr_hash<<endl;
-    Node* root = new Node(11,left,right);
+    TrieNode* root = new TrieNode(11,left,right);
     cout<<root->val<<endl<<root->curr_hash<<endl;
     return 0;
 }

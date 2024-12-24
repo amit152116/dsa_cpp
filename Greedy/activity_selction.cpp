@@ -16,6 +16,7 @@ int main(){
     while(!pq.empty()){
         int start=pq.top().second;
         int end=pq.top().first;
+        cout<<start<<' '<<end<<endl;
         pq.pop();
         if(event<=start){
             total++;

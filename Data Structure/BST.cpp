@@ -105,13 +105,12 @@ node* buildTree_preorder(vector<int> arr,int min=INT_MIN, int max=INT_MAX){
     if(arr[i]>=min && arr[i]<=max){
         curr=new node(arr[i]);
         i++;
-        if(i<arr.size()){
-            if(curr->val>=arr[i]){
-                curr->left=buildTree_preorder(arr,min,curr->val);
-            }
-            if(curr->val<=arr[i]){
-                curr->right=buildTree_preorder(arr,curr->val,max);
-            }
+        if(i>=arr.size())return curr;
+        if(curr->val>=arr[i]){
+            curr->left=buildTree_preorder(arr,min,curr->val);
+        }
+        if(curr->val<=arr[i]){
+            curr->right=buildTree_preorder(arr,curr->val,max);
         }
         
     }
