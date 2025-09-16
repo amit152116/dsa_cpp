@@ -1,0 +1,11 @@
+CompileFlags:
+  Add:
+    - -I/opt/ros/humble/include
+    - -I/home/amit_152116/Documents/aim_ros/src
+    - -I/usr/include/eigen3
+    - -I/usr/include
+    - -I/usr/include/c++/11
+    - -I/usr/include/x86_64-linux-gnu/c++/11
+    - -Wextra
+    - -isystem/usr/include
+    - -isystem/usr/local/include

@@ -1,0 +1,47 @@
+# Use 4-space indentation
+IndentWidth: 4
+TabWidth: 4
+# Inherit from a common base (optional, like LLVM, Google, etc.)
+BasedOnStyle: Google
+# Optional extras
+AllowShortFunctionsOnASingleLine: Empty
+# BasedOnStyle: LLVM
+UseTab: Never
+# Braces & spacing
+# BreakBeforeBraces: Allman # Puts braces on a new line (common in ROS)
+# AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+# Alignment & wrapping
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignAfterOpenBracket: Align
+AlignOperands: true
+# ColumnLimit: 100
+
+# Namespace & includes
+NamespaceIndentation: All
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<.*\.h>'
+    Priority: 1
+    SortPriority: 0
+    CaseSensitive: false
+  - Regex: '^<.*\.hpp>'
+    Priority: 2
+    SortPriority: 0
+    CaseSensitive: false
+  - Regex: '^".*"$'
+    Priority: 3
+    SortPriority: 0
+    CaseSensitive: false
+  - Regex: '.*'
+    Priority: 4
+    SortPriority: 0
+    CaseSensitive: false
+# Constructor initializer indentation
+ConstructorInitializerIndentWidth: 4
+# Extra options
+ReflowComments: true
+SpacesInAngles: false
+SpaceBeforeParens: ControlStatements

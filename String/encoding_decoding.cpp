@@ -1,21 +1,14 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
+class URLShortner {
+   private:
+   public:
+    string encoding(string longUrl) {}
 
-class URLShortner{
-private:
-
-public:
-    string encoding(string longUrl){
-
-    }
-
-    string decoding(string shortUrl){
-
-    }
+    string decoding(string shortUrl) {}
 };
-int main(){
-    
+int main() {
     return 0;
 }
