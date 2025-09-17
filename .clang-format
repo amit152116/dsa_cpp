@@ -3,6 +3,7 @@ IndentWidth: 4
 TabWidth: 4
 # Inherit from a common base (optional, like LLVM, Google, etc.)
 BasedOnStyle: Google
+SeparateDefinitionBlocks: Always
 # Optional extras
 AllowShortFunctionsOnASingleLine: Empty
 # BasedOnStyle: LLVM
