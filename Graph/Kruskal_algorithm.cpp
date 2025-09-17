@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-#include "../Data Structure/Disjoint_set.hpp"
+#include "../Data Structure/DisjointSet.hpp"
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL)
