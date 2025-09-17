@@ -47,7 +47,7 @@ using namespace std;
  *      found.
  *   - Maintain distance array initialized to INT_MAX, source = 0.
  */
-void dijkstra_algorithm(Graph graph, int n) {
+void dijkstra(Graph graph, int n) {
     int         source = 1;
     vector<int> dist(n, INT_MAX);
     dist[source] = 0;
@@ -98,7 +98,7 @@ int main() {
         graph[u].insert({v, w});
     }
 
-    dijkstra_algorithm(graph, n);
+    dijkstra(graph, n);
 
     return 0;
 }
