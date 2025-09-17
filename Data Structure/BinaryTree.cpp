@@ -3,18 +3,21 @@
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL)
 using namespace std;
-class node {
+
+class Node {
    public:
     int   val;
-    node *left;
-    node *right;
-    node(int val) {
+    Node* left;
+    Node* right;
+
+    Node(int val) {
         this->val = val;
         left      = NULL;
         right     = NULL;
     }
 };
-void display(node *root, string prefix = "", bool isLeft = true) {
+
+void display(Node* root, string prefix = "", bool isLeft = true) {
     if (root == nullptr) {
         cout << "Empty tree";
         return;
@@ -30,10 +33,11 @@ void display(node *root, string prefix = "", bool isLeft = true) {
         display(root->left, prefix + (isLeft ? "    " : "│   "), true);
     }
 }
+
 // ------------------------------------     Inorder Traversal
 // ---------------------------------------
-void inOrder_traversal(node *root, vector<int> &arr) {
-    stack<node *> st;
+void inOrder_traversal(Node* root, vector<int>& arr) {
+    stack<Node*> st;
     while (!st.empty() || root) {
         while (root) {
             st.push(root);
@@ -48,8 +52,8 @@ void inOrder_traversal(node *root, vector<int> &arr) {
 
 // ------------------------------------     Preorder Traversal
 // ---------------------------------------
-void preOrder_traversal(node *root, vector<int> &arr) {
-    stack<node *> st;
+void preOrder_traversal(Node* root, vector<int>& arr) {
+    stack<Node*> st;
     while (!st.empty() || root) {
         while (root) {
             if (root->right)
@@ -67,7 +71,7 @@ void preOrder_traversal(node *root, vector<int> &arr) {
 
 // ------------------------------------     Postorder Traversal
 // ---------------------------------------
-void postOrder_traversal(node *root, vector<int> &arr) {
+void postOrder_traversal(Node* root, vector<int>& arr) {
     if (root == NULL) {
         return;
     }
@@ -75,10 +79,11 @@ void postOrder_traversal(node *root, vector<int> &arr) {
     postOrder_traversal(root->right, arr);
     arr.push_back(root->val);
 }
+
 // ------------------------------------     Level Order Traversal / BFS
 // ---------------------------------------
-void levelOrder_traversal(node *root, vector<int> &arr) {
-    queue<node *> st;
+void levelOrder_traversal(Node* root, vector<int>& arr) {
+    queue<Node*> st;
     st.push(root);
     int level = 1;
     while (!st.empty()) {
@@ -107,7 +112,8 @@ int search(vector<int> inorder, int start, int end, int key) {
     }
     return -1;
 }
-node *buildTree_PreOrder(vector<int> preorder, vector<int> inorder, int start,
+
+Node* buildTree_PreOrder(vector<int> preorder, vector<int> inorder, int start,
                          int end) {
     if (start > end) {
         return NULL;
@@ -115,16 +121,16 @@ node *buildTree_PreOrder(vector<int> preorder, vector<int> inorder, int start,
     static int idx  = 0;
     int        curr = preorder[idx];
     idx++;
-    node *Node  = new node(curr);
+    Node* node  = new class Node(curr);
     int   pos   = search(inorder, start, end, curr);
-    Node->left  = buildTree_PreOrder(preorder, inorder, start, pos - 1);
-    Node->right = buildTree_PreOrder(preorder, inorder, pos + 1, end);
-    return Node;
+    node->left  = buildTree_PreOrder(preorder, inorder, start, pos - 1);
+    node->right = buildTree_PreOrder(preorder, inorder, pos + 1, end);
+    return node;
 }
 
 // -----------------------------    Build Tree using Inorder and Postorder
 // ----------------------------
-node *buildTree_PostOrder(vector<int> postorder, vector<int> inorder, int start,
+Node* buildTree_PostOrder(vector<int> postorder, vector<int> inorder, int start,
                           int end) {
     if (start > end) {
         return NULL;
@@ -132,17 +138,17 @@ node *buildTree_PostOrder(vector<int> postorder, vector<int> inorder, int start,
     static int idx  = postorder.size() - 1;
     int        curr = postorder[idx];
     idx--;
-    node *Node = new node(curr);
+    Node* node = new Node(curr);
     int   pos  = search(inorder, start, end, curr);
 
-    Node->right = buildTree_PostOrder(postorder, inorder, pos + 1, end);
-    Node->left  = buildTree_PostOrder(postorder, inorder, start, pos - 1);
-    return Node;
+    node->right = buildTree_PostOrder(postorder, inorder, pos + 1, end);
+    node->left  = buildTree_PostOrder(postorder, inorder, start, pos - 1);
+    return node;
 }
 
 // -----------------------------    NO. of Nodes of Tree
 // ----------------------------
-int countNodes(node *root) {
+int countNodes(Node* root) {
     if (!root) {
         return 0;
     }
@@ -151,7 +157,7 @@ int countNodes(node *root) {
 
 // -----------------------------    Sum of Nodes of Tree
 // ----------------------------
-int sumNodes(node *root) {
+int sumNodes(Node* root) {
     if (!root) {
         return 0;
     }
@@ -160,7 +166,7 @@ int sumNodes(node *root) {
 
 // -----------------------------    Height of Binary Tree
 // ----------------------------
-int treeHeight(node *root) {
+int treeHeight(Node* root) {
     if (!root) {
         return 0;
     }
@@ -168,9 +174,10 @@ int treeHeight(node *root) {
     int right = treeHeight(root->right);
     return max(left, right) + 1;
 }
+
 // -----------------------------    Diameter of Binary Tree - 1
 // ---------------------------- Time complexity = O(n^2)
-int treeDiameter(node *root) {
+int treeDiameter(Node* root) {
     if (!root) {
         return 0;
     }
@@ -184,7 +191,7 @@ int treeDiameter(node *root) {
 
 // -----------------------------    Diameter of Binary Tree - 2
 // ---------------------------- Time complexity = O(n)
-int treeDiameter(node *root, int &height) {
+int treeDiameter(Node* root, int& height) {
     if (!root) {
         height = 0;
         return 0;
@@ -199,7 +206,7 @@ int treeDiameter(node *root, int &height) {
 // -----------------------------    Sum Replacement of Binary Tree
 // ----------------------------
 
-void sum_replacement(node *&root) {
+void sum_replacement(Node*& root) {
     if (!root) {
         return;
     }
@@ -216,7 +223,7 @@ void sum_replacement(node *&root) {
 
 // -----------------------------    Check Balanced Binary Tree
 // ----------------------------
-bool isBalanced(node *root, int &height) {
+bool isBalanced(Node* root, int& height) {
     if (!root)
         return true;
     int lh = 0, rh = 0;
@@ -232,8 +239,8 @@ bool isBalanced(node *root, int &height) {
 // -----------------------------    Right View of Binary Tree
 // ----------------------------
 
-void right_view(node *root) {
-    queue<node *> st;
+void right_view(Node* root) {
+    queue<Node*> st;
     st.push(root);
     int sum = 0;
     while (!st.empty()) {
@@ -253,12 +260,12 @@ void right_view(node *root) {
 
 // -----------------------------    Top View of Binary Tree
 // ----------------------------
-void top_view(node *root) {
+void top_view(Node* root) {
     if (!root)
         return;
 
-    map<int, int>            mp;
-    queue<pair<node *, int>> q;
+    map<int, int>           mp;
+    queue<pair<Node*, int>> q;
     q.push({root, 0});
     while (!q.empty()) {
         root        = q.front().first;
@@ -282,12 +289,12 @@ void top_view(node *root) {
 
 // -----------------------------    Bottom View of Binary Tree
 // ----------------------------
-void bottom_view(node *root) {
+void bottom_view(Node* root) {
     if (!root)
         return;
 
-    map<int, int>            mp;
-    queue<pair<node *, int>> q;
+    map<int, int>           mp;
+    queue<pair<Node*, int>> q;
     q.push({root, 0});
     while (!q.empty()) {
         root        = q.front().first;
@@ -313,15 +320,15 @@ void bottom_view(node *root) {
 // finding last common path node.
 //*     Time Complexity=O(n)
 
-node *LCA(node *root, int n1, int n2) {
+Node* LCA(Node* root, int n1, int n2) {
     if (!root) {
         return NULL;
     }
     if (root->val == n1 || root->val == n2) {
         return root;
     }
-    node *left  = LCA(root->left, n1, n2);
-    node *right = LCA(root->right, n1, n2);
+    Node* left  = LCA(root->left, n1, n2);
+    Node* right = LCA(root->right, n1, n2);
     if (left && right) {
         return root;
     }
@@ -334,7 +341,7 @@ node *LCA(node *root, int n1, int n2) {
 // -----------------------------    Shortest Distance b/w 2 Nodes
 // ----------------------------
 
-int find_dist(node *root, int k, int dist) {
+int find_dist(Node* root, int k, int dist) {
     if (!root)
         return -1;
     if (root->val == k) {
@@ -347,24 +354,25 @@ int find_dist(node *root, int k, int dist) {
     return find_dist(root->right, k, dist + 1);
 }
 
-int dist_nodes(node *root, int n1, int n2) {
-    node *lca = LCA(root, n1, n2);
+int dist_nodes(Node* root, int n1, int n2) {
+    Node* lca = LCA(root, n1, n2);
 
     int d1 = find_dist(lca, n1, 0);
     int d2 = find_dist(lca, n2, 0);
 
     return d1 + d2;
 }
+
 // -----------------------------    Flatten the Binary Tree
 // ----------------------------
 
-node *flatten_tree(node *head) {
-    stack<node *> st;
+Node* flatten_tree(Node* head) {
+    stack<Node*> st;
 
     // Create a dummy node to help construct the flattened tree
-    node *dummy = new node(-1);
-    node *temp  = dummy;  // Pointer to track the last node in the new list
-    node *root  = head;
+    Node* dummy = new Node(-1);
+    Node* temp  = dummy;  // Pointer to track the last node in the new list
+    Node* root  = head;
 
     while (!st.empty() || root) {
         while (root) {
@@ -396,7 +404,7 @@ node *flatten_tree(node *head) {
 // -----------------------------    Max Path Sum in Binary Tree
 // ----------------------------
 
-int max_pathSum(node *root, int &maxSum) {
+int max_pathSum(Node* root, int& maxSum) {
     if (!root)
         return 0;
 
@@ -410,13 +418,13 @@ int max_pathSum(node *root, int &maxSum) {
 }
 
 int main() {
-    node *root         = new node(1);
-    root->left         = new node(2);
-    root->right        = new node(3);
-    root->left->left   = new node(4);
-    root->left->right  = new node(5);
-    root->right->left  = new node(6);
-    root->right->right = new node(7);
+    Node* root         = new Node(1);
+    root->left         = new Node(2);
+    root->right        = new Node(3);
+    root->left->left   = new Node(4);
+    root->left->right  = new Node(5);
+    root->right->left  = new Node(6);
+    root->right->right = new Node(7);
 
     vector<int> preorder;
     preOrder_traversal(root, preorder);
@@ -434,7 +442,7 @@ int main() {
     }
     cout << endl;
 
-    node *tree = buildTree_PreOrder(preorder, inorder, 0, inorder.size() - 1);
+    Node* tree = buildTree_PreOrder(preorder, inorder, 0, inorder.size() - 1);
     vector<int> arr;
     levelOrder_traversal(tree, arr);
     for (auto i : arr) {

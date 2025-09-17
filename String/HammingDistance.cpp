@@ -52,3 +52,7 @@ int hamming(const std::string& a, const std::string& b) {
     }
     return dist;
 }
+
+int main(int argc, char* argv[]) {
+    return 0;
+}

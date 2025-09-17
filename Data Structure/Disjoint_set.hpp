@@ -20,6 +20,7 @@ class Disjoint_Set {
             make_set(i);
         }
     }
+
     void make_set(int v) {
         parent[v] = v;
         size[v]   = 1;
@@ -30,6 +31,7 @@ class Disjoint_Set {
             return v;
         return parent[v] = find_set(parent[v]);
     }
+
     void union_sets(int v1, int v2) {
         int a = find_set(v1);
         int b = find_set(v2);
