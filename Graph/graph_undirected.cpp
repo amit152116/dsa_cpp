@@ -8,12 +8,33 @@ using namespace std;
 #define Graph map<int, set<int>>
 #define Visit unordered_map<int, bool>
 
-// -----------------------------    BFS in Graph    ----------------------------
-/* When to use BFS in graph?
-
-
-    *   Time Complexity = O(V+E)
-*/
+/*
+ * Breadth-First Search (BFS)
+ * ---------------------------
+ * Definition:
+ *   Traverses a graph level by level, visiting all nodes at the current depth
+ *   before moving to the next level.
+ *
+ * Allowed Operations / Rules:
+ *   - Works for directed or undirected graphs.
+ *   - Can handle disconnected graphs by iterating over all vertices.
+ *
+ * Recurrence Relation / Formula:
+ *   - Uses a queue to process nodes in FIFO order.
+ *   - For each node, enqueue all unvisited neighbors.
+ *
+ * Edge Cases / Pitfalls:
+ *   - Ensure all nodes are visited in disconnected graphs.
+ *   - Avoid revisiting nodes to prevent infinite loops.
+ *
+ * Complexity:
+ *   - Time: O(V + E) for adjacency list.
+ *   - Space: O(V) for visited array and queue.
+ *
+ * Implementation Notes:
+ *   - Uses `queue` to maintain the current frontier.
+ *   - Iterates through all vertices to handle disconnected components.
+ */
 void bfs(Graph graph, int item = 0) {
     fast;
     cout << endl << " BFS :";
@@ -35,20 +56,38 @@ void bfs(Graph graph, int item = 0) {
     return;
 }
 
-// -----------------------------    DFS in Graph    ----------------------------
-/* When to use DFS in graph?
-    1. No. of Connected Components
-    2. Compute Minimum Spanning Tree of graph
-    3. Detect and find cycles in graph
-    4. Checking if graph is Bipartite
-    5. Find Strongly Connected Components
-    6. Topological sort of graph
-    7. Find bridge and articulation point
-    8. Find argumenting path in network flow
-    9. Generate Mazes
-
-    *    Time Complexity = O(V+E)
-*/
+/*
+ * Depth-First Search (DFS)
+ * -------------------------
+ * Definition:
+ *   Traverses a graph by exploring as far as possible along each branch
+ *   before backtracking.
+ *
+ * Allowed Operations / Rules:
+ *   - Works for directed or undirected graphs.
+ *   - Can handle disconnected graphs by iterating over all vertices.
+ *
+ * Recurrence Relation / Formula:
+ *   - Recursive approach: for each node, recursively visit all unvisited
+ * neighbors.
+ *
+ * Edge Cases / Pitfalls:
+ *   - Stack overflow for very deep graphs in recursion.
+ *   - Ensure visited array is reset for multiple DFS calls.
+ *
+ * Complexity:
+ *   - Time: O(V + E) for adjacency list.
+ *   - Space: O(V) for visited array + recursion stack.
+ *
+ * Comparison:
+ *   - DFS vs BFS:
+ *       - DFS uses stack/recursion, explores depth first.
+ *       - BFS uses queue, explores breadth first.
+ *
+ * Implementation Notes:
+ *   - Uses a recursive helper `dfs_recursion`.
+ *   - Iterates all vertices to handle disconnected graphs.
+ */
 void dfs(Graph graph, Visit& visited, int item = 0) {
     cout << item << ' ';
     visited[item] = true;
@@ -60,8 +99,20 @@ void dfs(Graph graph, Visit& visited, int item = 0) {
     return;
 }
 
-// -----------------------------    Cycle detection in Graph
-// ----------------------------
+// -----------------------------    DFS in Graph    ----------------------------
+/* When to use DFS in graph?
+    1. No. of Connected Components
+    2. Compute Minimum Spanning Tree of graph
+    3. Detect and find cycles in graph
+    4. Checking if graph is Bipartite
+    5. Find Strongly Connected Components
+    6. Topological sort of graph
+    7. Find bridge and articulation point
+    8. Find argumenting path in network flow
+    9. Generate Mazes
+*/
+
+// -----------    Cycle detection in Graph -----------------
 bool cycle_detect(Graph graph, Visit& visited, int node, int parent) {
     visited[node] = true;
     for (auto i : graph[node]) {
@@ -77,7 +128,6 @@ bool cycle_detect(Graph graph, Visit& visited, int node, int parent) {
 }
 
 // -----------------------------    Connected Graph ----------------------------
-
 int connected_graph(Graph graph, Visit& visited, int node) {
     int x         = 1;
     visited[node] = true;
@@ -89,8 +139,7 @@ int connected_graph(Graph graph, Visit& visited, int node) {
     return x;
 }
 
-// -----------------------------    Bipartite Graph by DFS
-// ----------------------------
+// ----------------    Bipartite Graph by DFS ------------------------
 
 bool isBipartite_Graph(Graph graph, Visit& visited, int node, vector<int>& set,
                        int color) {
@@ -113,8 +162,7 @@ bool isBipartite_Graph(Graph graph, Visit& visited, int node, vector<int>& set,
 // -----------------------------   Eulerian Path    ----------------------------
 void eulerian_path() {}
 
-// ---------------------------    Eulerian Circuit
-// -------------------------------
+// ------------------------- Eulerian Circuit ----------------------------
 void eulerian_circuit() {}
 
 // -----------------------------   Adjancey Matrix ----------------------------

@@ -1,18 +1,61 @@
 #include <bits/stdc++.h>
 
-#include "../Data Structure/Disjoint_set.hpp"
 #define fast                          \
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL)
 using namespace std;
 
-//* Time Complexity : O(ElogV)
-
-// For adjancency matix time complexity of Prims is O(V^2)
-// and it is good for denser graphs.
-
 map<int, set<pair<int, int>>> graph;
-int                           prims_MST(int n = 9) {
+
+/*
+ * Definition:
+ *   Computes the Minimum Spanning Tree (MST) of a connected, weighted,
+ * undirected graph using Prim's algorithm.
+ *
+ * Allowed Operations / Rules:
+ *   - Graph must be undirected and connected.
+ *   - Edge weights can be positive or zero.
+ *   - Select edges incrementally, always choosing the minimum-weight edge
+ *      connecting a visited node to an unvisited node.
+ *
+ * Recurrence Relation / Formula:
+ *   - Start from a source vertex.
+ *   - While there are unvisited vertices:
+ *       - Select edge (u,v) with minimum weight where u is visited and v is
+ *          unvisited.
+ *       - Add v to MST and update distances for adjacent unvisited vertices.
+ *
+ * Edge Cases / Pitfalls:
+ *   - Graph must be connected; otherwise, MST does not exist.
+ *   - Multiple edges between same vertices are allowed; only the smallest
+ *      weight counts.
+ *   - Avoid revisiting nodes by marking them visited.
+ *
+ * Complexity:
+ *   - Time: O(E log V) using a set or priority queue.
+ *           O(V^2) if using adjacency matrix without a heap, good for dense
+ *          graphs.
+ *   - Space: O(V + E) for adjacency list and auxiliary arrays.
+ *
+ * Use Cases:
+ *   - Network design (minimum cost connectivity, like laying cables).
+ *   - Designing efficient pipelines, power grids, and transport networks.
+ *   - Clustering algorithms in machine learning.
+ *
+ * Comparison:
+ *   - Prim vs Kruskal:
+ *       - Prim is efficient for dense graphs (especially with adjacency
+ *          matrix).
+ *       - Kruskal works better for sparse graphs.
+ *
+ * Implementation Notes:
+ *   - Uses a set to maintain the minimum edge efficiently (like a priority
+ *      queue).
+ *   - Maintains `dist` array for minimum edge weight to MST and `parent` array
+ *      for MST edges.
+ *   - Iteratively adds the vertex with minimum connecting edge to the MST.
+ */
+int primsMST(int n = 9) {
     int cost = 0;
 
     vector<int>  dist(n, INT_MAX);
@@ -66,6 +109,6 @@ int main() {
         graph[v].insert({u, w});
     }
 
-    prims_MST();
+    primsMST();
     return 0;
 }
