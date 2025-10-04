@@ -18,6 +18,7 @@ int Binary_Search(vector<int> nums, int target, int start, int end) {
     }
     return -1;
 }
+
 int findpos(vector<int> arr, int target) {
     int lo  = 0;
     int hi  = 1;
@@ -29,6 +30,7 @@ int findpos(vector<int> arr, int target) {
     }
     return Binary_Search(arr, target, lo, hi);
 }
+
 int main() {
     vector<int> arr = {
         3,   11,  11,  15,  15,  16,  23,  44,  48,  60,  60,  63,  64,

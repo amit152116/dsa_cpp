@@ -84,13 +84,15 @@ class HashMap {
         return val % capacity;
     }
 
-    int hashCode(string val) {
-        const int prime    = 53;
+    int hashCode(string str) {
+        static const int prime = 53;
+
         long long hash_val = 0;
-        long long p_pow    = 1;
-        for (auto it : val) {
-            hash_val = (hash_val + (it - 'a' + 1) * p_pow) % capacity;
-            p_pow    = (p_pow * prime) % capacity;
+        long long power    = 1;
+        for (auto ch : str) {
+            int val  = ch - 'a' + 1;
+            hash_val = (hash_val + val * power) % capacity;
+            power    = (power * prime) % capacity;
         }
         cout << hash_val << endl;
         return hash_val;

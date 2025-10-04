@@ -21,6 +21,7 @@ bool isSafe(vector<vector<int>> board, int row, int col, int n) {
 
     return true;
 }
+
 bool nQueen(vector<vector<int>>& board, int n, int row) {
     if (row >= n)
         return true;

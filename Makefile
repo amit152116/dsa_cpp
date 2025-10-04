@@ -1,40 +1,15 @@
-.PHONY: all clean build rebuild test
+# Project-specific defaults
+target ?=
+compiler ?=
 
-# Project configuration
-PROJECT_NAME = DSA_code
-BUILD_DIR = build
+# Build script (installed system-wide)
+BUILD_SCRIPT := cbuild
 
-# Default target
-all: build
+# Include master makefile
+include $(HOME)/.dotfiles/scripts/cmake.mk
 
-# Create build directory and generate CMake files
-cmake_init:
-	@mkdir -p $(BUILD_DIR)
-	@cd $(BUILD_DIR) && cmake ..
-
-# Build the project
-build: cmake_init
-	@echo "Building $(PROJECT_NAME)..."
-	@cd $(BUILD_DIR) && make -j$(shell nproc)
-	@echo "Build complete!"
-
-# Clean build directory
-clean:
-	@echo "Cleaning build directory..."
-	@rm -rf $(BUILD_DIR)
-	@echo "Clean complete!"
-
-# Rebuild the project
-rebuild: clean build
-
-
-
-# Show help
-help:
-	@echo "Available targets:"
-	@echo "  make          - Build the project"
-	@echo "  make clean    - Clean build files"
-	@echo "  make rebuild  - Clean and rebuild"
-	@echo "  make help     - Show this help message"
-
-
+# Run the program
+.PHONY: run
+run:
+	@echo "▶ Running $(target)..."
+	./build/bin/$(target); \

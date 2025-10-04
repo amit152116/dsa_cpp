@@ -1,39 +1,38 @@
-#include<bits/stdc++.h>
-#define fast   ios_base::sync_with_stdio(false); cin.tie(NULL)
+#include <bits/stdc++.h>
+#define fast                          \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL)
 using namespace std;
 
-
 // Min no. of squares whose sum equal to given No.
-int MinSquare(int x,vector<int>& arr){
-
-    if(arr[x]!=INT_MAX){
+int MinSquare(int x, vector<int>& arr) {
+    if (arr[x] != INT_MAX) {
         return arr[x];
     }
 
-    for(int i=1;i*i<=x;i++){
-        arr[x]=min(arr[x],1+MinSquare(x-i*i,arr));
+    for (int i = 1; i * i <= x; i++) {
+        arr[x] = min(arr[x], 1 + MinSquare(x - i * i, arr));
     }
     return arr[x];
 }
-int main(){
-    int x=51;
-    vector<int> arr = vector<int>(x+1,INT_MAX);
-    arr[0]=0;
-    arr[1]=1;
-    arr[2]=2;
-    arr[3]=3;
+
+int main() {
+    int         x   = 51;
+    vector<int> arr = vector<int>(x + 1, INT_MAX);
+    arr[0]          = 0;
+    arr[1]          = 1;
+    arr[2]          = 2;
+    arr[3]          = 3;
     // Recursive Approach
-    cout<<MinSquare(x,arr)<<endl;
+    cout << MinSquare(x, arr) << endl;
 
     // Iterative Approach
-    for(int i=0;i*i<=x;i++){
-
-        for(int j=0;i*i+j<=x;j++){
-            arr[i*i+j]=min(arr[i*i+j],1+arr[j]);
+    for (int i = 0; i * i <= x; i++) {
+        for (int j = 0; i * i + j <= x; j++) {
+            arr[i * i + j] = min(arr[i * i + j], 1 + arr[j]);
         }
     }
-    cout<<arr[x]<<endl;
-    
+    cout << arr[x] << endl;
 
     return 0;
 }

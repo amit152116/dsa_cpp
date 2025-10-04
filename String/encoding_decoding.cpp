@@ -9,6 +9,7 @@ class URLShortner {
 
     string decoding(string shortUrl) {}
 };
+
 int main() {
     return 0;
 }
