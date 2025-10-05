@@ -5,10 +5,11 @@
 
 #include <cstdint>
 
-constexpr int     MAX      = INT32_MAX;
-const std::string FILENAME = "random_numbers.txt";
+constexpr int              MAX      = INT32_MAX;
+constexpr std::string_view FILENAME = "random_numbers.txt";
 
-inline std::vector<int> generateRandomNums(int n, int max = MAX, int seed = 0) {
+inline auto generateRandomNums(int n, int seed = 0, int max = MAX, int min = 0)
+    -> std::vector<int> {
     std::vector<int> arr(n);
     {
         Benchmark bench("Generate Random Numbers");
@@ -17,7 +18,7 @@ inline std::vector<int> generateRandomNums(int n, int max = MAX, int seed = 0) {
         // Otherwise, use the provided seed for reproducibility
         std::mt19937 generator(seed == 0 ? std::random_device{}() : seed);
 
-        std::uniform_int_distribution<int> distribution(1, max);
+        std::uniform_int_distribution<int> distribution(0, max);
 
         for (int i = 0; i < n; ++i) {
             arr[i] = distribution(generator);
@@ -28,8 +29,8 @@ inline std::vector<int> generateRandomNums(int n, int max = MAX, int seed = 0) {
 }
 
 inline void writeNumbersToFile(const std::vector<int>& numbers,
-                               const std::string&      filename = FILENAME) {
-    std::ofstream out(filename);
+                               const std::string_view& filename = FILENAME) {
+    std::ofstream out((std::string(filename)));
 
     if (out.is_open()) {
         for (const auto& num : numbers) {
@@ -41,9 +42,9 @@ inline void writeNumbersToFile(const std::vector<int>& numbers,
     }
 }
 
-inline std::vector<int> readNumbersFromFile(
-    const std::string& filename = FILENAME) {
-    std::ifstream    in(filename);
+inline auto readNumbersFromFile(const std::string_view& filename = FILENAME)
+    -> std::vector<int> {
+    std::ifstream    in((std::string(filename)));
     std::vector<int> numbers;
     int              number;
 

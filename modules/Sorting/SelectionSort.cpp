@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-#include "../utils/randomNumbers.hpp"
+#include "utils/randomNumbers.hpp"
 
 using namespace std;
 
@@ -12,10 +12,10 @@ finding the minimum element from unsorted part and putting it at the beginning.
 *               Auxiliary Space: O(1)
 ?               It can be useful when memory write is a costly operation
 */
-int main() {
+auto main() -> int {
     int  n   = 1000;
-    auto arr = generateRandomNums(n, 1000, 42);
-    cout << n << endl;
+    auto arr = generateRandomNums(n, 42, 1000);
+    cout << n << '\n';
 
     int count = 0;
     for (int i = 0; i < n - 1; i++) {

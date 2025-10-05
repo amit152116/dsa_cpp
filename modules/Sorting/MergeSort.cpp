@@ -1,4 +1,4 @@
-#include "../utils/randomNumbers.hpp"
+#include "utils/randomNumbers.hpp"
 
 #include <iostream>
 #include <vector>
@@ -55,7 +55,7 @@ void merge_Sort(vector<int>& arr, int start, int end) {
 
 int main() {
     int  n   = 1000;
-    auto arr = generateRandomNums(n, 1000, 42);
+    auto arr = generateRandomNums(n, 42, 1000);
     cout << "Size : " << n << endl;
     int start = 0;
     int end   = n - 1;

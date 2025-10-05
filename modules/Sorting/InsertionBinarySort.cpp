@@ -1,4 +1,4 @@
-#include "../utils/randomNumbers.hpp"
+#include "utils/randomNumbers.hpp"
 
 #include <iostream>
 #include <vector>
@@ -21,7 +21,7 @@ int Binary_Search(vector<int> nums, int target, int start, int end) {
 
 int main() {
     int  n     = 1000;
-    auto arr   = generateRandomNums(n, 1000, 42);
+    auto arr   = generateRandomNums(n, 42, 1000);
     int  count = 0;
     for (int i = 1; i < n; i++) {
         int j   = i - 1;

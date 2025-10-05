@@ -1,4 +1,4 @@
-#include "../utils/randomNumbers.hpp"
+#include "utils/randomNumbers.hpp"
 
 #include <iostream>
 #include <vector>
@@ -13,7 +13,7 @@ using namespace std;
 
 int main() {
     int  n     = 1000;
-    auto arr   = generateRandomNums(n, 1000, 42);
+    auto arr   = generateRandomNums(n, 42, 1000);
     int  count = 0;
 
     for (int i = 0; i < n - 1; i++) {

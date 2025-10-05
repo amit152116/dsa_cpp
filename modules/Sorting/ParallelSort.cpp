@@ -1,6 +1,6 @@
-#include "../utils/benchmark.hpp"
-#include "../utils/randomNumbers.hpp"
 #include "bits/stdc++.h"
+#include "utils/benchmark.hpp"
+#include "utils/randomNumbers.hpp"
 
 void merge(std::vector<int>& arr, int start, int mid, int end) {
     std::vector<int> brr;
@@ -60,8 +60,8 @@ void parallelMergeSort(std::vector<int>& arr, int start, int end,
     merge(arr, start, mid, end);
 }
 
-int main() {
-    auto arr1 = generateRandomNums(20000000, INT_MAX, 12435);
+auto main() -> int {
+    auto arr1 = generateRandomNums(20000000, 1243);
 
     auto arr2 = arr1;
     auto arr3 = arr1;
