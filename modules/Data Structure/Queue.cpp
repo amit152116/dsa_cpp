@@ -84,7 +84,7 @@ class queueStack {
     stack<int> st2;
 
    public:
-    queueStack() {}
+    queueStack() = default;
 
     void push(int val) {
         st1.push(val);
@@ -92,14 +92,14 @@ class queueStack {
 
     void pop() {
         if (st1.empty() && st2.empty()) {
-            cout << "Queue is empty" << endl;
+            cout << "Queue is empty" << '\n';
             return;
         }
         peek();
         st2.top();
     }
 
-    int peek() {
+    auto peek() -> int {
         if (st2.empty()) {
             while (!st1.empty()) {
                 st2.push(st1.top());
@@ -109,22 +109,13 @@ class queueStack {
         return st2.top();
     }
 
-    bool empty() {
-        if (st1.empty() && st2.empty()) {
-            return true;
-        }
-        return false;
+    auto empty() -> bool {
+        return st1.empty() && st2.empty();
     }
 };
 
-struct comparator {
-    bool operator()(const int a, const int b) {
-        return a > b;
-    }
-};
-
-int main() {
-    priority_queue<int, vector<int>, comparator> q;
+auto main() -> int {
+    priority_queue<int, vector<int>, std::greater<>> q;
     q.push(5);
     q.push(4);
     q.push(9);

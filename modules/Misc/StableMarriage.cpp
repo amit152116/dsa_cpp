@@ -8,9 +8,10 @@
 /*-------------------  Gale Shapely Algorithm  -------------------------*/
 /*----------------------------------------------------------------------*/
 
-void stable_marriage(std::vector<std::vector<int>> menPreferences,
-                     std::vector<std::vector<int>> womenPreferences) {
-    std::unordered_map<int, int> mensPairing, womensPairing;
+static void stable_marriage(std::vector<std::vector<int>> menPreferences,
+                            std::vector<std::vector<int>> womenPreferences) {
+    std::unordered_map<int, int> mensPairing;
+    std::unordered_map<int, int> womensPairing;
 
     std::queue<int> freeMen;
 
@@ -71,7 +72,7 @@ void stable_marriage(std::vector<std::vector<int>> menPreferences,
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     // Men’s preferences: men[man][rank] = woman
     std::vector<std::vector<int>> menPreferences = {
         {2, 1, 3, 4},  // M1

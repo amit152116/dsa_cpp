@@ -10,11 +10,7 @@ class Node {
     Node* left;
     Node* right;
 
-    Node(int val) {
-        this->val = val;
-        left      = NULL;
-        right     = NULL;
-    }
+    explicit Node(int val) : val(val), left(nullptr), right(nullptr) {}
 };
 
 void display(Node* root, string prefix = "", bool isLeft = true) {

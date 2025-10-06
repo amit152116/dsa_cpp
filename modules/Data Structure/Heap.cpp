@@ -84,7 +84,7 @@ class MinHeap {
         print();
     }
 
-    vector<int> minHeapify(vector<int> heap) {
+    auto minHeapify(vector<int> heap) -> vector<int> {
         for (int i = size - 1; i >= 0; i--) {
             int parent = this->parent(i);
             if (heap[i] < heap[parent])
