@@ -18,6 +18,7 @@ install/
 *.dylib
 *.dll
 *.exe
+*.out*
 
 # CMake
 CMakeCache.txt

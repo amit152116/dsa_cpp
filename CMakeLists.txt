@@ -4,6 +4,8 @@ project(
   VERSION 1.0
   LANGUAGES CXX)
 
+add_compile_definitions(_GLIBCXX_PARALLEL)
+
 # Set C++17 as standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -27,6 +29,8 @@ endif()
 
 # --- Dependencies ---
 find_package(fmt REQUIRED)
+find_package(TBB REQUIRED)
+find_package(OpenMP REQUIRED)
 
 # Add shared library
 add_subdirectory(lib)
@@ -37,7 +41,10 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/modules/*.cpp)
 foreach(source ${SOURCES})
   get_filename_component(EXECUTABLE ${source} NAME_WE)
   add_executable(${EXECUTABLE} ${source})
-  target_link_libraries(${EXECUTABLE} PRIVATE utils)
+  target_link_libraries(
+    ${EXECUTABLE}
+    PRIVATE utils
+    PUBLIC OpenMP::OpenMP_CXX TBB::tbb)
 endforeach()
 
 # Tests
