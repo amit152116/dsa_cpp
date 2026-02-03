@@ -36,7 +36,7 @@ class MinQueue {
     }
 
     // Remove element 'val' from the queue front (if it matches)
-    int pop(int val) {
+    auto pop(int val) -> int {
         int remove = -1;
         if (!queue.empty() && queue.front() == val) {
             remove = val;
@@ -186,7 +186,7 @@ class MinQueue3 {
      *   - If both are non-empty, the min is the smaller of:
      *        push_stack.top().second  and  pop_stack.top().second
      */
-    int minimum() {
+    auto minimum() -> int {
         if (push_stack.empty() || pop_stack.empty()) {
             return push_stack.empty() ? pop_stack.top().second
                                       : push_stack.top().second;

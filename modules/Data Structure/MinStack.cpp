@@ -39,19 +39,19 @@ class MinStack {
     }
 
     // Pop top value and return it
-    int pop() {
+    auto pop() -> int {
         int val = stack.top().first;
         stack.pop();
         return val;
     }
 
     // Get current minimum
-    int min() {
+    auto min() -> int {
         return stack.top().second;
     }
 };
 
-int main(int argc, char* argv[]) {
+auto main(int argc, char* argv[]) -> int {
     std::vector<int> arr = {1, 2, 3, 4, 5};
 
     return 0;

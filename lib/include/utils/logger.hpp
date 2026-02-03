@@ -1,6 +1,5 @@
 #pragma once
 
-#include <variant>
 #define FMT_HEADER_ONLY
 
 #include <fmt/chrono.h>
@@ -8,13 +7,11 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
-#include <fstream>
 #include <string>
 
 enum class LogLevel : uint8_t { DEBUG, INFO, WARN, ERROR, FATAL, PRINT };
 
-static std::ofstream logFile_;
-static LogLevel      currentLevel_ = LogLevel::DEBUG;
+inline static LogLevel currentLevel_ = LogLevel::DEBUG;
 
 // Convert log level to string
 inline auto getLevelString(LogLevel level) -> std::string {
@@ -52,14 +49,6 @@ inline auto getLevelColor(LogLevel level) -> fmt::terminal_color {
     }
 }
 
-// Set log file
-inline void setLogFile(const std::string& filename) {
-    if (logFile_.is_open()) {
-        logFile_.close();
-    }
-    logFile_.open(filename, std::ios::app);
-}
-
 // Set current log level
 inline void setLevel(LogLevel level) {
     currentLevel_ = level;
@@ -91,12 +80,6 @@ void log(LogLevel level, const Args&... args) {
 
     auto color = getLevelColor(level);
     fmt::print(fg(color), "{}", logLine);
-
-    // File output without color
-    if (logFile_.is_open()) {
-        logFile_ << logLine;
-        logFile_.flush();
-    }
 }
 
 // Convenience functions
